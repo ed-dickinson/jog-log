@@ -8,7 +8,8 @@ const Header = (props) => {
   const logo = props.logo
   return (
     <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
+      <div className="HeaderBG"></div>
+      
       <AnimatedLogo />
 
       <LogoTitle />

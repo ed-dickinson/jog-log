@@ -90,12 +90,12 @@
 @media only screen and (min-width: 600px) {
   .runner-cont {
     position: fixed;
-    bottom: 4em; top: auto;
-    animation: runner 10s infinite linear;
+    bottom: 5.5em; top: auto;
+    animation: run 10s infinite linear;
     transform: scale(0.4)
   }
 
-  @keyframes runner {
+  @keyframes run {
     0% {left: 120%;}
     100% {left: -20%;}
   }

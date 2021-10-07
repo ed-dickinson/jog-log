@@ -1,10 +1,18 @@
 import React, {useState} from 'react'
 
-const Form = ({formOpen}) => {
-
-  if (formOpen) {
+const CloseButton = ({action}) => {
   return(
-    <div className="NewRunForm">
+    <span onClick={() => action(false)} className="CloseButton">
+      <svg className="close-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 2 L 1 1 L 0 0 M 2 0 L 1 1 L 2 2'></path></svg>
+    </span>
+  )
+}
+
+const Form = ({formOpen, setFormOpen}) => {
+
+  // if (formOpen) {
+  return(
+    <div className={formOpen ? "NewRunForm" : "NewRunForm hidden"}>
       <form>
         <label>Distance:</label><input />
         <label>Elevation:</label><input />
@@ -23,21 +31,24 @@ const Form = ({formOpen}) => {
         <button>Submit</button>
 
       </form>
+      <CloseButton action={setFormOpen} />
     </div>
   )
-} else {
-  return(<div>No form.</div>)
-}
+// } else {
+//   return(<div>No form.</div>)
+// }
 }
 
 const NewRun = () => {
   const [formOpen, setFormOpen] = useState(false)
 
   return (
-    <div className="NewRun">{formOpen ?
-      <Form formOpen={formOpen}/> :
-      <div onClick={() => setFormOpen(true)} className="NewRunTab"><svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg></div>
-    }
+
+    <div className="NewRun">
+      <Form formOpen={formOpen} setFormOpen={setFormOpen}/>
+      <div onClick={() => setFormOpen(true)} className={!formOpen ? "NewRunTab" : "NewRunTab hidden"}><svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg></div>
+
+
 
 
     </div>
