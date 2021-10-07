@@ -42,7 +42,7 @@ svg.logo-title-svg path {fill: none; stroke: white;
 
 .HeaderBG {width: 100%; height: 100%; background-color: PaleVioletRed; position: absolute; z-index: 5; }
 
-.NewRun {
+.FormTab {
   position: absolute;
   top: 100%;
   width: 80%;
@@ -50,7 +50,7 @@ svg.logo-title-svg path {fill: none; stroke: white;
   z-index: 1;
 }
 
-.NewRunTab {
+.Tab {
   background-color: orange;
   display: inline-block;
   cursor: pointer;
@@ -63,18 +63,18 @@ svg.logo-title-svg path {fill: none; stroke: white;
   border-left: 5px solid orange;
   z-index: 1;
 }
-.NewRunTab.hidden {
+.Tab.hidden {
   transform: translateY(-100%);
 }
 
-.NewRunTab:hover {
+.Tab:hover {
   /* background-color: gold; */
   /* opacity: 0.8; */
   top: 0px;
 }
 
-svg.log-a-jog-svg {height: 40px; }
-svg.log-a-jog-svg path {fill: none; stroke: white;
+svg.log-a-jog-svg, svg.log-in-svg {height: 40px; }
+svg.log-a-jog-svg path, svg.log-in-svg path {fill: none; stroke: white;
   /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
   stroke-width: 0.5px; stroke-linecap:square; preserveAspectRatio: none; }
 
@@ -85,7 +85,7 @@ svg.close-svg {height: 1em;  cursor: pointer; transition: 0.25s;}
 svg.close-svg:hover {top: 2px; position: relative;}
 svg.close-svg path {fill: none; stroke: white; stroke-linecap:butt;}
 
-.NewRunForm {
+.Form {
   color: orange;
   font-weight: 700;
   border: 5px solid orange;
@@ -95,23 +95,23 @@ svg.close-svg path {fill: none; stroke: white; stroke-linecap:butt;}
   transition: 0.5s;
   transform: translateY(0%);
 }
-.NewRunForm.hidden {
+.Form.hidden {
   transform: translateY(-100%);
 }
-.NewRunForm label {
+.Form label {
   border: 3px solid white;
   background-color: white;
   color: orange;
   font-size: 14px;
 
 }
-.NewRunForm input {
+.Form input {
   border: 3px solid white;
   background-color: orange;
   color: white;
   margin-right: 10px;
 }
-.NewRunForm input[name=description] {width: 200px; height: 4em;}
+.Form input[name=description] {width: 200px; height: 4em;}
 
 main {width: 80%; margin: auto;}
 

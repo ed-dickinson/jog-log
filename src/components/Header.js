@@ -1,7 +1,7 @@
 import React from 'react'
 import LogoTitle from './LogoTitle'
 import AnimatedLogo from './AnimatedLogo'
-import NewRun from './NewRun'
+import FormTab from './FormTab'
 
 
 const Header = (props) => {
@@ -9,7 +9,7 @@ const Header = (props) => {
   return (
     <header className="App-header">
       <div className="HeaderBG"></div>
-      
+
       <AnimatedLogo />
 
       <LogoTitle />
@@ -23,7 +23,7 @@ const Header = (props) => {
 
       </a>
 
-      <NewRun />
+      <FormTab />
 
     </header>
 
