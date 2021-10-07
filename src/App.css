@@ -13,18 +13,18 @@
   }
 }
 
-svg {height: 100px; width: 140px;}
-svg path {fill: none; stroke: #666;
+svg.logo-title-svg {height: 100px; width: 140px;}
+svg.logo-title-svg path {fill: none; stroke: white;
   /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
-  stroke-width: 0.5px; stroke-linecap:square; preserveAspectRatio: none; }
-svg path {stroke: #666;
-  /* d: path('m0 30 l30 -30 ' );  */
-  stroke-linecap:butt;}
+  stroke-width: 0.5px; stroke-linecap:butt; preserveAspectRatio: none; }
 
-/* svg{ overflow: visible; height: 17px; position: absolute;} */
+.LogoTitle {position: relative; left: 100px;}
+
+.slogan {position: absolute; bottom: 0.4em; left: 1em; font-size: 0.6em; color: gold; font-style: italic; font-weight: 600; width: 200%;}
 
 .App-header {
-  background-color: #282c34;
+  background-color: PaleVioletRed;
+  position: relative;
   min-height: 100px;
   display: flex;
   /* flex-direction: column; */
@@ -39,11 +39,49 @@ svg path {stroke: #666;
   font-size: calc(5px + 1vmin);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.NewRun {
+  position: absolute;
+  top: 100%;
+  width: 80%;
+  left: 10%;
 }
+
+.NewRunTab {
+  background-color: orange;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.25s;
+  position: absolute; right: 0;
+}
+.NewRunTab:hover {
+  /* background-color: gold; */
+  opacity: 0.8;
+}
+
+svg.log-a-jog-svg {height: 40px; }
+svg.log-a-jog-svg path {fill: none; stroke: white;
+  /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
+  stroke-width: 0.5px; stroke-linecap:square; preserveAspectRatio: none; }
+
+.NewRunForm {
+  color: orange;
+  font-weight: 700;
+  border: 5px solid orange;
+  border-top: 0;
+  padding: 10px;
+  background-color: orange;
+}
+.NewRunForm label {
+  border: 3px solid white;
+  background-color: white;
+  color: orange;
+  font-size: 14px;
+
+}
+.NewRunForm input {
+  border: 3px solid white;
+  background-color: orange;
+  color: white;
+  margin-right: 10px;
+}
+.NewRunForm input[name=description] {width: 200px; height: 4em;}

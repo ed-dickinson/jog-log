@@ -1,0 +1,102 @@
+.AnimatedLogo {
+  color: purple;
+  font-size: 12px;
+  position: absolute;
+}
+
+.runner-cont {top: 30px;position: relative; transform: scale(0.6)}
+.runner {font-size: 0.6em; font-weight: 700; color: lightseagreen; position: absolute; left: 10em;}
+.hip-joint {position: absolute;
+  /* background-color: red;  */
+  }
+.thigh {width: 0.25em; height: 8em; position: absolute; top: 1.5em; left: 0.5em;}
+
+.joint {width: 0px; height: 0px; border-radius: 50%;}
+.knee-joint {
+  /* background-color: gold;  */
+  position: absolute; bottom: -0em; left: -0em;}
+.shin {width: 1px; height: 4.5em; position: absolute; top: 0.6em; left: 0.4em;}
+.ankle-joint {
+  /* background-color: purple;  */
+  position: absolute; bottom: -0em; left: -0em;}
+.foot {width: 1px; height: 2.5em; position: absolute; top: 0.9em; left: 0.9em;}
+
+/* opacity designing */
+
+/* .thigh, .shin, .foot {background-color: seagreen; } */
+/* .hip-joint, .knee-joint, .ankle-joint {background-color: purple; opacity: 0.8;} */
+
+.hip-joint {transform: rotate(20deg);}
+.knee-joint {transform: rotate(-70deg);}
+.ankle-joint {transform: rotate(100deg);}
+
+.runner span {position: relative;}
+.runner span {font-size: 6em; top: -0.2em; left: -0.2em;}
+
+/* letter pos */
+.thigh > span {top: 0.9em; left: -0.3em;}
+.shin > span {font-size: 5em; top: 0.5em; left: -0.4em;}
+.foot > span {font-size: 4em; top: 0.5em; left: -0.6em;}
+
+.foot > span > svg {transform: rotate(290deg);}
+
+/* .thigh > span {color: lightseagreen;}
+.shin > span {color: wheat;}
+.foot > span {color: tomato;} */
+
+.thigh > span, .shin > span, .foot > span {color: PaleVioletRed;}
+/* or violet or plaevioletred */
+
+/* .thigh.log > span {left: -0.3em;} */
+/* .thigh.jog > span {top:0em;} */
+
+.runner{animation: runner 0.75s -0.625s infinite ease-in-out; position: relative;}
+.hip-joint {animation: hip 1.5s infinite ease-in-out;}
+.hip-joint:nth-child(2) {animation-delay: -0.75s;}
+.knee-joint {animation: knee 1.5s 0.05s infinite ease-in-out;}
+.knee-joint.log {animation-delay: -0.80s;}
+.ankle-joint {animation: ankle 1.5s infinite ease-in-out;}
+.ankle-joint {animation-delay: -1.35s;}
+.ankle-joint.log {animation-delay: -0.6s;}
+
+/* 0, 100 is knee up, 50 is backward extension */
+
+@keyframes hip {
+  0%, 100% {transform: rotate(80deg);}
+  50% {transform: rotate(-40deg);}
+
+}
+@keyframes knee {
+  0%, 100% {transform: rotate(-120deg);}
+  50% {transform: rotate(-10deg);}
+}
+@keyframes ankle {
+  0%, 100% {transform: rotate(130deg);}
+  50% {transform: rotate(-0deg);}
+}
+@keyframes runner {
+  0%, 100% {top: 10px;}
+  50% {top: 40px;}
+}
+
+
+.runner svg path {fill: none; stroke: MediumAquaMarine; stroke: DeepSkyBlue; stroke: PaleVioletRed;
+  stroke-width: 0.5px; preserveAspectRatio: none;
+  /* d: path('m0 30 l30 -30 ' );  */
+  stroke-linecap:butt;}
+
+.runner svg { overflow: visible; height: 17px; position: absolute;}
+
+@media only screen and (min-width: 600px) {
+  .runner-cont {
+    position: fixed;
+    bottom: 4em; top: auto;
+    animation: runner 10s infinite linear;
+    transform: scale(0.4)
+  }
+
+  @keyframes runner {
+    0% {left: 120%;}
+    100% {left: -20%;}
+  }
+}
