@@ -22,7 +22,7 @@ svg.logo-title-svg path {fill: none; stroke: white;
 
 .LogoTitle {position: relative; left: 10%; z-index: 6; width: 80%;}
 
-.slogan {position: absolute; bottom: 0.4em; left: 0em; font-size: 0.6em; color: gold; font-style: italic; font-weight: 600; width: 30%;}
+.slogan {position: absolute; bottom: 0.4em; left: 0em; font-size: 0.6em; color: gold; font-style: italic; font-weight: 600; width: 50%;}
 
 .App-header {
   background-color: PaleVioletRed;
@@ -122,6 +122,7 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   font-size: 0.6em;
 }
 .Form input[name=description] {width: 200px; height: 4em;}
+.Form textarea {border: 3px solid orange; width: calc(100% - 10px);}
 .Form button {
   border: 3px solid orange;
   background-color: orange;
@@ -138,6 +139,7 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   right: 20px; position:
   relative;
 }
+.Form::after {content: ''; position: absolute; height: 60px; width: 100%; background: linear-gradient(white, rgba(255,255,255,0)); left: 0; top: calc(100% + 5px);}
 
 main {width: 80%; margin: auto;}
 
@@ -155,3 +157,7 @@ main {width: 80%; margin: auto;}
   top: calc(50%); transform: translateY(-50%);
   font-size: 0.8em;
 }
+
+.no-shoes {font-size: 14px; color: black; font-weight: 400;}
+.no-shoes a {border-bottom: 3px solid orange; text-decoration: none; color: orange; font-weight: 700;}
+.no-shoes a:hover {top: 1px; position: relative; border-bottom: 2px solid orange;}

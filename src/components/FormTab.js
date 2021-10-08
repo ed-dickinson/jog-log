@@ -22,16 +22,13 @@ const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
     event.preventDefault()
     console.log('loggin in with', username, password)
     try {
-      const user = await loginService.login({
+      const response = await loginService.login({
         email: username, password,
       })
       setFormOpen(false)
-      
-      setUser(user)
-
+      setUser(response.user)
       setUsername('')
       setPassword('')
-
     } catch (exception) {
       console.log('wrong credentials')
       setTimeout(() => {
@@ -46,23 +43,29 @@ const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
     <div className={formOpen ? "Form" : "Form hidden"}>
       {user!==null ?
         <form>
-          <label>Distance:</label><input /><span className="form-units">mi</span>
-          <label>Elevation:</label><input /><span className="form-units">ft</span>
+          <label>Distance:</label><input type="number" /><span className="form-units">mi</span>
+          <label>Elevation:</label><input type="number" /><span className="form-units">ft</span>
           <label>Date:</label><input type="date" value={date_now} onChange={() => console.log(date_now)}/><br />
 
-          <label>Description:</label><textarea type="textarea" name="description" />
+          <label>Description:</label><br /><textarea type="textarea" name="description" />
 
           <label>Shoes:</label>
 
-          <select name="shoes" id="shoes">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
+          {user.shoes.length===0
+            ? <span className="no-shoes">No shoes! <a href="/">Add some?</a></span>
+            : <select name="shoes" id="shoes">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+          }
 
 
-          <button>Submit</button>
+
+          <div className="button-cont">
+            <button>Submit</button>
+          </div>
 
         </form>
       :
