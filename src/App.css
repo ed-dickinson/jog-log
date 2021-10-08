@@ -16,7 +16,9 @@
 svg.logo-title-svg {height: 100px; width: 140px; left: -0.6em; position: relative;}
 svg.logo-title-svg path {fill: none; stroke: white;
   /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
-  stroke-width: 0.5px; stroke-linecap:butt; preserveAspectRatio: none; }
+  stroke-width: 0.5px; stroke-linecap:butt;
+  /* preserveAspectRatio: none;  */
+}
 
 .LogoTitle {position: relative; left: 10%; z-index: 6; width: 80%;}
 
@@ -76,22 +78,25 @@ svg.logo-title-svg path {fill: none; stroke: white;
 svg.log-a-jog-svg, svg.log-in-svg {height: 40px; }
 svg.log-a-jog-svg path, svg.log-in-svg path {fill: none; stroke: white;
   /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
-  stroke-width: 0.5px; stroke-linecap:square; preserveAspectRatio: none; }
+  stroke-width: 0.5px; stroke-linecap:square;
+  /* preserveAspectRatio: none;  */
+}
 
 .CloseButton {
-  position: absolute; top: 5px; right: 0;
+  position: absolute; top: 5px; right: 5px;
 }
 svg.close-svg {height: 1em;  cursor: pointer; transition: 0.25s;}
 svg.close-svg:hover {top: 2px; position: relative;}
-svg.close-svg path {fill: none; stroke: white; stroke-linecap:butt;}
+svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
 
 .Form {
   color: orange;
   font-weight: 700;
-  border: 5px solid orange;
+  border-bottom: 5px solid orange;
+  /* border-radius: 0 0 15px 15px; */
   border-top: 0;
   padding: 10px;
-  background-color: orange;
+  background-color: white;
   transition: 0.5s;
   transform: translateY(0%);
 }
@@ -99,19 +104,40 @@ svg.close-svg path {fill: none; stroke: white; stroke-linecap:butt;}
   transform: translateY(-100%);
 }
 .Form label {
-  border: 3px solid white;
+  /* border: 3px solid orange; */
   background-color: white;
   color: orange;
   font-size: 14px;
-
+  /* vertical-align: bottom; */
 }
 .Form input {
-  border: 3px solid white;
-  background-color: orange;
-  color: white;
-  margin-right: 10px;
+  border: 0;
+  border-bottom: 3px solid orange;
+  background-color: white;
+  color: black;
+  /* margin-right: 10px; */
+}
+.Form .form-units {
+  margin-right: 20px;
+  font-size: 0.6em;
 }
 .Form input[name=description] {width: 200px; height: 4em;}
+.Form button {
+  border: 3px solid orange;
+  background-color: orange;
+  color: white;
+  font-weight: 700;
+  font-size: 0.7em;
+  cursor: pointer; position:
+  relative;
+}
+.Form button:hover {top: 1px;}
+.Form button:active {top: 2px;}
+.Form .button-cont {
+  text-align: right;
+  right: 20px; position:
+  relative;
+}
 
 main {width: 80%; margin: auto;}
 
@@ -119,3 +145,13 @@ main {width: 80%; margin: auto;}
   color: orange; border-bottom: 3px solid orange; font-weight: 700; text-decoration: none;
 }
 .IntroText p {padding-left: 10px; padding-right: 10px;}
+
+.header-username {
+  color:white;
+  position: absolute;
+  right: 10%; top: 10px;
+  z-index: 6;
+  font-weight: 700;
+  top: calc(50%); transform: translateY(-50%);
+  font-size: 0.8em;
+}

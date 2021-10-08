@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import LogoTitle from './LogoTitle'
 import AnimatedLogo from './AnimatedLogo'
 import FormTab from './FormTab'
 
 
 const Header = (props) => {
-  const logo = props.logo
+  const [user, setUser] = useState(null)
+  const [loggedIn, setLoggedIn] = useState(false);
+  // const logo = props.logo
   return (
     <header className="App-header">
       <div className="HeaderBG"></div>
@@ -23,7 +25,9 @@ const Header = (props) => {
 
       </a>
 
-      <FormTab />
+      <span className="header-username">{user!==null?`[${user.name}]`:''}</span>
+
+      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
     </header>
 

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import loginService from '../services/login'
 
 const CloseButton = ({action}) => {
   return(
@@ -8,21 +9,51 @@ const CloseButton = ({action}) => {
   )
 }
 
-const Form = ({formOpen, setFormOpen, loggedIn}) => {
+const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
+  const now = new Date();
+  const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
+  const date_now = date.year + '-' + (date.month.toString().length>1?'':'0')  + date.month + '-' + (date.day.toString().length>1?'':'0') + date.day;
+  console.log(date_now)
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    console.log('loggin in with', username, password)
+    try {
+      const user = await loginService.login({
+        email: username, password,
+      })
+      setFormOpen(false)
+      
+      setUser(user)
+
+      setUsername('')
+      setPassword('')
+
+    } catch (exception) {
+      console.log('wrong credentials')
+      setTimeout(() => {
+        console.log('timeout')
+      }, 5000)
+    }
+  }
 
 
   // if (formOpen) {
   return(
     <div className={formOpen ? "Form" : "Form hidden"}>
-      {loggedIn ?
+      {user!==null ?
         <form>
-          <label>Distance:</label><input />
-          <label>Elevation:</label><input />
-          <label>Date:</label><input type="date" /><br />
+          <label>Distance:</label><input /><span className="form-units">mi</span>
+          <label>Elevation:</label><input /><span className="form-units">ft</span>
+          <label>Date:</label><input type="date" value={date_now} onChange={() => console.log(date_now)}/><br />
 
-          <label>Description:</label><input name="description"/>
+          <label>Description:</label><textarea type="textarea" name="description" />
 
           <label>Shoes:</label>
+
           <select name="shoes" id="shoes">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -30,19 +61,32 @@ const Form = ({formOpen, setFormOpen, loggedIn}) => {
             <option value="audi">Audi</option>
           </select>
 
+
           <button>Submit</button>
 
         </form>
       :
-        <form>
-          <label>Email:</label><input />
-          <label>Password:</label><input type="password"/>
-
-          <button>Log In</button>
+        <form onSubmit={handleLogin}>
+          <label>Email:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={({target}) => setUsername(target.value)}
+          />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={({target}) => setPassword(target.value)}
+          />
+          <div className="button-cont">
+            <button>Log In</button>
+          </div>
 
         </form>
       }
       <CloseButton action={setFormOpen} />
+
     </div>
   )
 // } else {
@@ -50,17 +94,17 @@ const Form = ({formOpen, setFormOpen, loggedIn}) => {
 // }
 }
 
-const FormTab = () => {
+const FormTab = ({user, setUser, loggedIn, setLoggedIn}) => {
   const [formOpen, setFormOpen] = useState(false)
 
-  const loggedIn = false;
+
 
   return (
 
     <div className="FormTab">
-      <Form formOpen={formOpen} setFormOpen={setFormOpen} loggedIn={loggedIn}/>
+      <Form formOpen={formOpen} setFormOpen={setFormOpen} loggedIn={loggedIn} user={user} setUser={setUser} />
       <div onClick={() => setFormOpen(true)} className={!formOpen ? "Tab" : "Tab hidden"}>
-        {loggedIn
+        {user!==null
           ? <svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg>
           : <svg className="log-in-svg" viewBox="-1 -2 16 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 4 A 1 1 0 0 0 10 4 L 10 2 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 12 1 L 12 3 L 12 2 A 1 1 0 0 1 14 2 L 14 3 M 9 0 A 1 1 0 0 0 11 0 A 1 1 0 0 0 9 0'></path></svg>
         }

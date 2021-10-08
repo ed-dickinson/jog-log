@@ -81,7 +81,8 @@
 
 
 .runner svg path {fill: none; stroke: MediumAquaMarine; stroke: DeepSkyBlue; stroke: PaleVioletRed;
-  stroke-width: 0.5px; preserveAspectRatio: none;
+  stroke-width: 0.5px;
+  /* preserveAspectRatio: none; */
   /* d: path('m0 30 l30 -30 ' );  */
   stroke-linecap:butt;}
 
