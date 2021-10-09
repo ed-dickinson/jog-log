@@ -4,8 +4,9 @@ import AnimatedLogo from './AnimatedLogo'
 import FormTab from './FormTab'
 
 
-const Header = (props) => {
-  const [user, setUser] = useState(null)
+const Header = ({user, setUser}) => {
+
+  const [token, setToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
   // const logo = props.logo
   return (
@@ -27,7 +28,7 @@ const Header = (props) => {
 
       <span className="header-username">{user!==null?`[${user.name}]`:''}</span>
 
-      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken}/>
 
     </header>
 

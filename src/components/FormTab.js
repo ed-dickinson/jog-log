@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import loginService from '../services/login'
+import shoeService from '../services/shoes'
 
 const CloseButton = ({action}) => {
   return(
@@ -9,24 +10,64 @@ const CloseButton = ({action}) => {
   )
 }
 
-const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
+const NewShoeForm = ({token, user, setShoeFormOpen}) => {
+  const [shoeName, setShoeName] = useState('')
+  const [shoeMessage, setShoeMessage] = useState('')
+  const handleNewShoe = async (event) => {
+    event.preventDefault()
+    try {
+      const response = await shoeService.addNew({
+        token: token, user: user, shoeName: shoeName,
+      })
+      // setShoeFormOpen(false)
+      setShoeMessage('Shoes added!')
+      console.log(response)
+    } catch (exception) {
+      console.log('summin wrong')
+      setTimeout(() => {
+        console.log('timeout')
+      }, 5000)
+    }
+  }
+  return(
+    <span>
+      {shoeMessage === '' ?
+        <span className="NewShoeForm" >
+            <label>Name: </label>
+            <input type="text" value={shoeName} onChange={({target}) => setShoeName(target.value)}/>
+            <button onClick={handleNewShoe}>Add</button>
+        </span>
+      :
+        <span className="NewShoeMessage">{shoeMessage}</span>
+    }
+
+
+    </span>
+  )
+}
+
+const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
   const now = new Date();
   const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
   const date_now = date.year + '-' + (date.month.toString().length>1?'':'0')  + date.month + '-' + (date.day.toString().length>1?'':'0') + date.day;
-  console.log(date_now)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log('loggin in with', username, password)
+    // console.log('loggin in with', username, password)
     try {
       const response = await loginService.login({
         email: username, password,
       })
       setFormOpen(false)
+
       setUser(response.user)
+
+      setToken(response.token)
+      console.log(response)
+
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -37,31 +78,38 @@ const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
     }
   }
 
+  const [shoeFormOpen, setShoeFormOpen] = useState(false)
 
+  const openNewShoeForm = (event) => {
+    event.preventDefault();
+    console.log('open new shoe form')
+    setShoeFormOpen(true)
+  }
   // if (formOpen) {
   return(
     <div className={formOpen ? "Form" : "Form hidden"}>
       {user!==null ?
         <form>
-          <label>Distance:</label><input type="number" /><span className="form-units">mi</span>
-          <label>Elevation:</label><input type="number" /><span className="form-units">ft</span>
-          <label>Date:</label><input type="date" value={date_now} onChange={() => console.log(date_now)}/><br />
+          <label>Distance: </label><input type="number" /><span className="form-units">mi</span>
+          <label>Elevation: </label><input type="number" /><span className="form-units">ft</span>
+          <label>Date: </label><input type="date" value={date_now} onChange={() => console.log(date_now)}/><br />
 
           <label>Description:</label><br /><textarea type="textarea" name="description" />
 
-          <label>Shoes:</label>
+          <label>Shoes: </label>
 
           {user.shoes.length===0
-            ? <span className="no-shoes">No shoes! <a href="/">Add some?</a></span>
+            ? <span className="no-shoes">No shoes! <button className="anchor-button"
+              onClick={openNewShoeForm}
+              >Add some?</button> </span>
             : <select name="shoes" id="shoes">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              {user.shoes.map(shoe =>
+                <option value={shoe}>{shoe}</option>
+              )}
               </select>
           }
 
-
+          {shoeFormOpen !== false && <NewShoeForm token={token} user={user} setShoeFormOpen={setShoeFormOpen}/>}
 
           <div className="button-cont">
             <button>Submit</button>
@@ -70,13 +118,13 @@ const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
         </form>
       :
         <form onSubmit={handleLogin}>
-          <label>Email:</label>
+          <label>Email: </label>
           <input
             type="text"
             value={username}
             onChange={({target}) => setUsername(target.value)}
-          />
-          <label>Password:</label>
+          />&nbsp;
+          <label>Password: </label>
           <input
             type="password"
             value={password}
@@ -97,7 +145,7 @@ const Form = ({formOpen, setFormOpen, loggedIn, user, setUser}) => {
 // }
 }
 
-const FormTab = ({user, setUser, loggedIn, setLoggedIn}) => {
+const FormTab = ({user, setUser, token, setToken}) => {
   const [formOpen, setFormOpen] = useState(false)
 
 
@@ -105,7 +153,7 @@ const FormTab = ({user, setUser, loggedIn, setLoggedIn}) => {
   return (
 
     <div className="FormTab">
-      <Form formOpen={formOpen} setFormOpen={setFormOpen} loggedIn={loggedIn} user={user} setUser={setUser} />
+      <Form formOpen={formOpen} setFormOpen={setFormOpen} user={user} setUser={setUser} token={token} setToken={setToken}/>
       <div onClick={() => setFormOpen(true)} className={!formOpen ? "Tab" : "Tab hidden"}>
         {user!==null
           ? <svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg>

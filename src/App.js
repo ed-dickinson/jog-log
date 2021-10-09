@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header'
@@ -29,11 +30,11 @@ const Main = () => {
 }
 
 function App() {
-  
+  const [user, setUser] = useState(null)
 
   return (
     <div className="App">
-      <Header logo={logo} />
+      <Header logo={logo} user={user} setUser={setUser}/>
       <Main />
     </div>
   );

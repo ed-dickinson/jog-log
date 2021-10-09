@@ -110,6 +110,7 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   font-size: 14px;
   /* vertical-align: bottom; */
 }
+/* .Form {font-size: 14px;} */
 .Form input {
   border: 0;
   border-bottom: 3px solid orange;
@@ -159,5 +160,14 @@ main {width: 80%; margin: auto;}
 }
 
 .no-shoes {font-size: 14px; color: black; font-weight: 400;}
-.no-shoes a {border-bottom: 3px solid orange; text-decoration: none; color: orange; font-weight: 700;}
-.no-shoes a:hover {top: 1px; position: relative; border-bottom: 2px solid orange;}
+.no-shoes button.anchor-button {border: 0; border-bottom: 3px solid orange; text-decoration: none; color: orange; font-weight: 700; font-size: 14px; background-color: white; padding: 0; display: inline-block; border-top: 0px; margin-bottom: 0px;}
+.no-shoes button.anchor-button:hover {border-bottom: 2px solid orange; border-top: 1px solid white; padding: 0; top: 1px; margin-bottom: 1px;}
+
+.NewShoeForm {display: inline-block; border: 3px solid orange; padding: 0; margin: 0;  line-height: 0;}
+.NewShoeForm label {border: 0; padding: 0; padding: 0 5px;}
+.NewShoeForm input {border: 0; }
+.NewShoeForm button {border: 0; margin: 0; top: -1px; border-bottom: 1px solid orange; margin-bottom: -1px; padding-top: 1px; padding-bottom: -1px;}
+.NewShoeForm button:hover { margin: 0; top: 0px; margin-bottom: -1px;}
+.NewShoeForm label, .NewShoeForm input, .NewShoeForm button {
+  display: inline-block; }
+.NewShoeMessage {font-size: 14px;}
