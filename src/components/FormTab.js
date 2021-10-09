@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import loginService from '../services/login'
 import shoeService from '../services/shoes'
+import userService from '../services/user'
 
 const CloseButton = ({action}) => {
   return(
@@ -53,6 +54,19 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [shoes, setShoes] = useState([])
+
+  const getShoes = async (userNo) => {
+    try {
+      const response = await userService.getShoes(userNo)
+      setShoes(response.shoes)
+    } catch (exeption) {
+      console.log('summin wrong')
+      setTimeout(() => {
+        console.log('timeout')
+      }, 5000)
+    }
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -62,12 +76,9 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
         email: username, password,
       })
       setFormOpen(false)
-
       setUser(response.user)
-
       setToken(response.token)
-      console.log(response)
-
+      getShoes(response.user.no)
       setUsername('')
       setPassword('')
     } catch (exception) {
@@ -76,6 +87,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
         console.log('timeout')
       }, 5000)
     }
+
   }
 
   const [shoeFormOpen, setShoeFormOpen] = useState(false)
@@ -86,6 +98,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
     setShoeFormOpen(true)
   }
   // if (formOpen) {
+  //distance and elevation are causing that red error
   return(
     <div className={formOpen ? "Form" : "Form hidden"}>
       {user!==null ?
@@ -98,13 +111,13 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
 
           <label>Shoes: </label>
 
-          {user.shoes.length===0
+          {shoes.length===0
             ? <span className="no-shoes">No shoes! <button className="anchor-button"
               onClick={openNewShoeForm}
               >Add some?</button> </span>
             : <select name="shoes" id="shoes">
-              {user.shoes.map(shoe =>
-                <option value={shoe}>{shoe}</option>
+              {shoes.map(shoe =>
+                <option key={shoe.no} value={shoe.no}>{shoe.name}</option>
               )}
               </select>
           }
