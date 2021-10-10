@@ -3,6 +3,8 @@ import loginService from '../services/login'
 import shoeService from '../services/shoes'
 import userService from '../services/user'
 
+import NewRunForm from './NewRunForm'
+
 const CloseButton = ({action}) => {
   return(
     <span onClick={() => action(false)} className="CloseButton">
@@ -11,49 +13,12 @@ const CloseButton = ({action}) => {
   )
 }
 
-const NewShoeForm = ({token, user, setShoeFormOpen}) => {
-  const [shoeName, setShoeName] = useState('')
-  const [shoeMessage, setShoeMessage] = useState('')
-  const handleNewShoe = async (event) => {
-    event.preventDefault()
-    try {
-      const response = await shoeService.addNew({
-        token: token, user: user, shoeName: shoeName,
-      })
-      // setShoeFormOpen(false)
-      setShoeMessage('Shoes added!')
-      console.log(response)
-    } catch (exception) {
-      console.log('summin wrong')
-      setTimeout(() => {
-        console.log('timeout')
-      }, 5000)
-    }
-  }
-  return(
-    <span>
-      {shoeMessage === '' ?
-        <span className="NewShoeForm" >
-            <label>Name: </label>
-            <input type="text" value={shoeName} onChange={({target}) => setShoeName(target.value)}/>
-            <button onClick={handleNewShoe}>Add</button>
-        </span>
-      :
-        <span className="NewShoeMessage">{shoeMessage}</span>
-    }
-
-
-    </span>
-  )
-}
-
 const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
-  const now = new Date();
-  const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
-  const date_now = date.year + '-' + (date.month.toString().length>1?'':'0')  + date.month + '-' + (date.day.toString().length>1?'':'0') + date.day;
+
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
   const [shoes, setShoes] = useState([])
 
   const getShoes = async (userNo) => {
@@ -67,6 +32,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
       }, 5000)
     }
   }
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -90,45 +56,13 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
 
   }
 
-  const [shoeFormOpen, setShoeFormOpen] = useState(false)
 
-  const openNewShoeForm = (event) => {
-    event.preventDefault();
-    console.log('open new shoe form')
-    setShoeFormOpen(true)
-  }
   // if (formOpen) {
   //distance and elevation are causing that red error
   return(
     <div className={formOpen ? "Form" : "Form hidden"}>
       {user!==null ?
-        <form>
-          <label>Distance: </label><input type="number" /><span className="form-units">mi</span>
-          <label>Elevation: </label><input type="number" /><span className="form-units">ft</span>
-          <label>Date: </label><input type="date" value={date_now} onChange={() => console.log(date_now)}/><br />
-
-          <label>Description:</label><br /><textarea type="textarea" name="description" />
-
-          <label>Shoes: </label>
-
-          {shoes.length===0
-            ? <span className="no-shoes">No shoes! <button className="anchor-button"
-              onClick={openNewShoeForm}
-              >Add some?</button> </span>
-            : <select name="shoes" id="shoes">
-              {shoes.map(shoe =>
-                <option key={shoe.no} value={shoe.no}>{shoe.name}</option>
-              )}
-              </select>
-          }
-
-          {shoeFormOpen !== false && <NewShoeForm token={token} user={user} setShoeFormOpen={setShoeFormOpen}/>}
-
-          <div className="button-cont">
-            <button>Submit</button>
-          </div>
-
-        </form>
+        <NewRunForm token={token} user={user} shoes={shoes}  />
       :
         <form onSubmit={handleLogin}>
           <label>Email: </label>
@@ -174,17 +108,9 @@ const FormTab = ({user, setUser, token, setToken}) => {
         }
       </div>
 
-
-
-
     </div>
   )
 }
 
-// <div className="NewRunTab"><svg className="log-a-jog-svg" viewBox="-1 -2 16 8.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 8 3 A 1 1 0 0 0 10 3 L 10 1 M 2 4 A 1 1 0 0 0 6 4 L 6 3 A 1 1 0 0 0 4 3 A 1 1 0 0 0 6 3 M 0 0 L 0 3 L 2 3 M 11 0 A 1 1 0 0 0 13 0 A 1 1 0 0 0 11 0 M 11 4 A 1 1 0 0 0 14 4 L 14 3 A 1 1 0 0 0 12 3 A 1 1 0 0 0 14 3 M 8 -1 L 8 0 A 1 1 0 0 0 6 0 A 1 1 0 0 0 8 0 L 8 1'></path></svg></div>
-
-// <div className="NewRun">
-//   <div className="NewRunTab"><svg className="log-a-jog-svg" viewBox="-1 -1 25 6" xmlns="http://www.w3.org/2000/svg"><path d='M 3 2 A 1 1 0 0 1 5 2 A 1 1 0 0 1 3 2 M 14 2 A 1 1 0 0 0 16 2 L 16 0 M 6 3 A 1 1 0 0 0 8 3 L 8 2 A 1 1 0 0 0 6 2 A 1 1 0 0 0 8 2 M 0 0 L 0 3 L 2 3 M 17 2 A 1 1 0 0 0 19 2 A 1 1 0 0 0 17 2 M 20 3 A 1 1 0 0 0 22 3 L 22 2 A 1 1 0 0 0 20 2 A 1 1 0 0 0 22 2 M 12 1 L 12 2 A 1 1 0 0 0 10 2 A 1 1 0 0 0 12 2 L 12 3'></path></svg></div>
-// </div>
 
 export default FormTab
