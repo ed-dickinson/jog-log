@@ -123,7 +123,7 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   font-size: 0.6em;
 }
 .Form input[name=description] {width: 200px; height: 4em;}
-.Form textarea {border: 3px solid orange; width: calc(100% - 10px);}
+.Form textarea {border: 3px solid orange; width: calc(100% - 10px); height: 6em;}
 .Form button {
   border: 3px solid orange;
   background-color: orange;
@@ -171,3 +171,5 @@ main {width: 80%; margin: auto;}
 .NewShoeForm label, .NewShoeForm input, .NewShoeForm button {
   display: inline-block; }
 .NewShoeMessage {font-size: 14px;}
+
+.run-form-message {font-size: 14px; color: black; font-weight: 600;}

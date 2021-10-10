@@ -29,6 +29,8 @@ const NewRunForm = ({token, user, shoes}) => {
     setRunShoe(shoes[0])
   }, [shoes])
 
+  const [runFormMessage, setRunFormMessage] = useState('')
+
   const handleNewRun = async (event) => {
     event.preventDefault();
     // console.log(shoes)
@@ -45,20 +47,27 @@ const NewRunForm = ({token, user, shoes}) => {
       description: runDescription,
     }
     console.log(formBody)
-    // try {
-    //   const response = await runService.addNew({
-    //     token: token,
-    //     formBody,
-    //   })
-    //   // setShoeFormOpen(false)
-    //   // setShoeMessage('Shoes added!')
-    //   console.log(response)
-    // } catch (exception) {
-    //   console.log('summin wrong')
-    //   setTimeout(() => {
-    //     console.log('timeout')
-    //   }, 5000)
-    // }
+    if (formBody.distance > 0 && runDescription !== '') {
+      try {
+        const response = await runService.addNew({
+          token: token,
+          formBody,
+        })
+        // setShoeFormOpen(false)
+        // setShoeMessage('Shoes added!')
+        console.log(response)
+        setRunFormMessage(response.message)
+      } catch (exception) {
+        console.log('summin wrong')
+        setTimeout(() => {
+          console.log('timeout')
+        }, 5000)
+      }
+    } else {
+        setRunFormMessage(formBody.distance === 0 ?
+          "Distance can't be 0!" :
+          "Run needs a description...")
+    }
   }
 
   return(
@@ -98,14 +107,15 @@ const NewRunForm = ({token, user, shoes}) => {
           {shoes.map(shoe =>
             <option key={shoe.no} value={shoe.no}>{shoe.name}</option>
           )}
-            <option key={99} value={99}>bogus</option>
+
           </select>
       }
 
       {shoeFormOpen !== false && <NewShoeForm token={token} user={user} setShoeFormOpen={setShoeFormOpen}/>}
 
       <div className="button-cont">
-        <button>Submit</button>
+        <span className="run-form-message">{runFormMessage} </span>
+        <button>Log It.</button>
       </div>
 
     </form>
