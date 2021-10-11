@@ -3,7 +3,7 @@ import runService from '../services/run'
 
 import NewShoeForm from './NewShoeForm'
 
-const NewRunForm = ({token, user, shoes}) => {
+const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange}) => {
   console.log('runformrender');
   const now = new Date();
   const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
@@ -16,7 +16,7 @@ const NewRunForm = ({token, user, shoes}) => {
     setShoeFormOpen(true)
   }
 
-  const [runDistance, setRunDistance] = useState(0);
+  const [runDistance, setRunDistance] = useState('');
   const [runElevation, setRunElevation] = useState(0);
   const [runDate, setRunDate] = useState(date_now);
   const [runDescription, setRunDescription] = useState('');
@@ -35,6 +35,7 @@ const NewRunForm = ({token, user, shoes}) => {
 
   const handleNewRun = async (event) => {
     event.preventDefault();
+
     // console.log(shoes)
     // if (shoes.length>0) {
     //   setRunShoe(shoes[0].no)
@@ -59,6 +60,8 @@ const NewRunForm = ({token, user, shoes}) => {
         // setShoeMessage('Shoes added!')
         console.log(response)
         setRunFormMessage(response.message)
+        setFormOpen(false)
+        setChange(!change)
       } catch (exception) {
         console.log('summin wrong')
         setTimeout(() => {
@@ -66,9 +69,9 @@ const NewRunForm = ({token, user, shoes}) => {
         }, 5000)
       }
     } else {
-        setRunFormMessage(formBody.distance === 0 ?
-          "! Distance can't be 0 !" :
-          "Run needs a description...")
+        setRunFormMessage(formBody.distance === 0 || runDistance === '' ?
+          "! Distance can't be 0..." :
+          "! Run needs a description...")
     }
   }
 

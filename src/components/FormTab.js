@@ -13,7 +13,7 @@ const CloseButton = ({action}) => {
   )
 }
 
-const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, setShoes}) => {
+const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, setShoes, change, setChange}) => {
 
 
   const [username, setUsername] = useState('')
@@ -85,7 +85,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, set
   return(
     <div className={formOpen ? "Form" : "Form hidden"}>
       {user!==null ?
-        <NewRunForm token={token} user={user} shoes={shoes}  />
+        <NewRunForm token={token} user={user} shoes={shoes} setFormOpen={setFormOpen} change={change} setChange={setChange} />
       :
         <form onSubmit={handleLogin}>
           <label>Email: </label>
@@ -115,7 +115,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, set
 // }
 }
 
-const FormTab = ({user, setUser, token, setToken, shoes, setShoes}) => {
+const FormTab = ({user, setUser, token, setToken, shoes, setShoes, change, setChange}) => {
   const [formOpen, setFormOpen] = useState(false)
 
 
@@ -123,7 +123,7 @@ const FormTab = ({user, setUser, token, setToken, shoes, setShoes}) => {
   return (
 
     <div className="FormTab">
-      <Form formOpen={formOpen} setFormOpen={setFormOpen} user={user} setUser={setUser} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes}/>
+      <Form formOpen={formOpen} setFormOpen={setFormOpen} user={user} setUser={setUser} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
       <div onClick={() => setFormOpen(true)} className={!formOpen ? "Tab" : "Tab hidden"}>
         {user!==null
           ? <svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg>

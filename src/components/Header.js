@@ -4,7 +4,7 @@ import AnimatedLogo from './AnimatedLogo'
 import FormTab from './FormTab'
 
 
-const Header = ({user, setUser, shoes, setShoes}) => {
+const Header = ({user, setUser, shoes, setShoes, change, setChange}) => {
 
   const [token, setToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,7 +28,7 @@ const Header = ({user, setUser, shoes, setShoes}) => {
 
       <span className="header-username">{user!==null?`[${user.name}]`:''}</span>
 
-      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes}/>
+      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
 
     </header>
 
