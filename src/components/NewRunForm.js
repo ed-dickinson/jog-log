@@ -26,7 +26,9 @@ const NewRunForm = ({token, user, shoes}) => {
   // console.log(runShoe)
 
   useEffect(() => {
-    setRunShoe(shoes[0])
+    // if (shoes.length > 0) {
+      setRunShoe(shoes[0])
+    // }
   }, [shoes])
 
   const [runFormMessage, setRunFormMessage] = useState('')
@@ -65,7 +67,7 @@ const NewRunForm = ({token, user, shoes}) => {
       }
     } else {
         setRunFormMessage(formBody.distance === 0 ?
-          "Distance can't be 0!" :
+          "! Distance can't be 0 !" :
           "Run needs a description...")
     }
   }

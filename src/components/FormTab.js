@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import loginService from '../services/login'
 import shoeService from '../services/shoes'
 import userService from '../services/user'
@@ -13,25 +13,39 @@ const CloseButton = ({action}) => {
   )
 }
 
-const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
+const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, setShoes}) => {
 
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const [shoes, setShoes] = useState([])
 
-  const getShoes = async (userNo) => {
-    try {
-      const response = await userService.getShoes(userNo)
-      setShoes(response.shoes)
-    } catch (exeption) {
-      console.log('summin wrong')
-      setTimeout(() => {
-        console.log('timeout')
-      }, 5000)
+
+  const getShoes = useCallback(async (userNo) => {
+    console.log('getshoes')
+    // console.log(shoes)
+    // if (shoes === []) {
+      try {
+        const response = await userService.getShoes(userNo)
+        setShoes(response.shoes)
+      } catch (exeption) {
+        console.log('summin wrong')
+        setTimeout(() => {
+          console.log('timeout')
+        }, 5000)
+      }
+    // }
+  },[setShoes]);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedInJogLogUser')
+    if (loggedUserJSON) {
+      const storedUser = JSON.parse(loggedUserJSON)
+      setUser(storedUser.user)
+      setToken(storedUser.token)
+      getShoes(storedUser.user.no)
     }
-  }
+  }, [getShoes, setUser, setToken])
 
 
   const handleLogin = async (event) => {
@@ -43,14 +57,23 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
       })
       setFormOpen(false)
       setUser(response.user)
+      // setUser(...user, token)
       setToken(response.token)
+      console.log(response.user)
+      // user.token = token
+
       getShoes(response.user.no)
+      window.localStorage.setItem(
+        'loggedInJogLogUser', JSON.stringify({user:response.user, token:response.token})
+      )
+      console.log('break')
+
       setUsername('')
       setPassword('')
     } catch (exception) {
       console.log('wrong credentials')
       setTimeout(() => {
-        console.log('timeout')
+        console.log('timeout login')
       }, 5000)
     }
 
@@ -92,7 +115,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser}) => {
 // }
 }
 
-const FormTab = ({user, setUser, token, setToken}) => {
+const FormTab = ({user, setUser, token, setToken, shoes, setShoes}) => {
   const [formOpen, setFormOpen] = useState(false)
 
 
@@ -100,7 +123,7 @@ const FormTab = ({user, setUser, token, setToken}) => {
   return (
 
     <div className="FormTab">
-      <Form formOpen={formOpen} setFormOpen={setFormOpen} user={user} setUser={setUser} token={token} setToken={setToken}/>
+      <Form formOpen={formOpen} setFormOpen={setFormOpen} user={user} setUser={setUser} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes}/>
       <div onClick={() => setFormOpen(true)} className={!formOpen ? "Tab" : "Tab hidden"}>
         {user!==null
           ? <svg className="log-a-jog-svg" viewBox="-1 -2 20 7.5" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 4 1 A 1 1 0 0 1 2 1 A 1 1 0 0 1 4 1 M 10 3 A 1 1 0 0 0 12 3 L 12 1 M 3 3 A 1 1 0 0 0 7 3 L 7 2 A 1 1 0 0 0 5 2 A 1 1 0 0 0 7 2 M 0 0 L 0 3 L 2 3 M 13 1 A 1 1 0 0 0 15 1 A 1 1 0 0 0 13 1 M 14 3 A 1 1 0 0 0 18 3 L 18 2 A 1 1 0 0 0 16 2 A 1 1 0 0 0 18 2 M 10 -1 L 10 0 A 1 1 0 0 0 8 0 A 1 1 0 0 0 10 0 L 10 1'></path></svg>
