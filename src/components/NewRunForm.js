@@ -44,7 +44,8 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
     let formBody = {
       user: user.no,
       shoe: runShoe.no,
-      distance: parseInt(runDistance),
+      // distance: Math.round(parseInt(runDistance) * 1609.34),
+      distance: runDistance,
       elevation: parseInt(runElevation),
       date: new Date(runDate),
       description: runDescription,

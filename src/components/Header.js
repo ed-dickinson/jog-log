@@ -4,7 +4,31 @@ import AnimatedLogo from './AnimatedLogo'
 import FormTab from './FormTab'
 
 
-const Header = ({user, setUser, shoes, setShoes, change, setChange}) => {
+const Username = ({user, metric, setMetric}) => {
+
+  const [actionsOpen, setActionsOpen] = useState(false)
+
+  const handleUnitChange = () => {
+    setMetric(!metric)
+  }
+
+  const handleImport = () => {
+    console.log('import here')
+  }
+
+  return (
+    <span className="header-username">
+      {user!==null?`[${user.name}]`:''}
+    <div className="Actions">
+        <div onClick={handleUnitChange}>{metric?'metric':'imperial'}</div>
+        <div onClick={handleImport}>import</div>
+      </div>
+
+    </span>
+  )
+}
+
+const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setMetric}) => {
 
   const [token, setToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
@@ -26,7 +50,7 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange}) => {
 
       </a>
 
-      <span className="header-username">{user!==null?`[${user.name}]`:''}</span>
+      <Username user={user} metric={metric} setMetric={setMetric}/>
 
       <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
 

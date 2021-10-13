@@ -23,12 +23,12 @@ const Intro = () => {
 
 // {user === null && <Intro />}
 
-const Main = ({user, shoes, change, setChange}) => {
+const Main = ({user, shoes, change, setChange, metric}) => {
   return(
     <main>
       {user === null ?
         <Intro /> :
-        <DataDisplay user={user} shoes={shoes} change={change} setChange={setChange}/>
+        <DataDisplay user={user} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
       }
 
 
@@ -40,11 +40,12 @@ function App() {
   const [user, setUser] = useState(null)
   const [shoes, setShoes] = useState([])
   const [change, setChange] = useState(false)
+  const [metric, setMetric] = useState(false)
 
   return (
     <div className="App">
-      <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange}/>
-      <Main user={user} shoes={shoes} change={change} setChange={setChange}/>
+      <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} metric={metric} setMetric={setMetric}/>
+      <Main user={user} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
     </div>
   );
 }

@@ -159,6 +159,22 @@ main {width: 80%; margin: auto;}
   top: calc(50%); transform: translateY(-50%);
   font-size: 0.8em;
 }
+.header-username:hover .Actions {
+  height: 3em;
+}
+.Actions {
+  font-weight: 600;
+  font-size: 14px;
+  position: absolute; top: 100%; right: 0;
+  background-color: PaleVioletRed;
+  cursor: pointer;
+  text-align: right;
+  /* display: inline-block; */
+  height: 0%;
+  overflow: hidden;
+  transition: 0.5s;
+}
+/* .Actions div {height: 0;} */
 
 .no-shoes {font-size: 14px; color: black; font-weight: 400;}
 .no-shoes button.anchor-button {border: 0; border-bottom: 3px solid orange; text-decoration: none; color: orange; font-weight: 700; font-size: 14px; background-color: white; padding: 0; display: inline-block; border-top: 0px; margin-bottom: 0px;}
