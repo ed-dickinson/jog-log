@@ -35,10 +35,20 @@ const TextDisplay = ({runs, shoes, metric}) => {
   )
 }
 
-const WeekDisplay = ({runs, shoes}) => {
+const WeekDisplay = ({runs, shoes, metric}) => {
+
+  const days_since_first = [];
+  const now = new Date();
+
+  for (let d = new Date(runs[0].date); d <= now; d.setDate(d.getDate() + 1)) {
+    days_since_first.push(new Date(d));
+  }
+
+  console.log(days_since_first)
 
   return(
     <div>
+      {days_since_first.map(day=><div>{day.getDate()}</div>)}
       {runs.map(run =>
         <div key={run.no} className="TextDisplayRun">
           <span>{dateFormatter.traditionalShort(run.date)}</span>
@@ -79,8 +89,6 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
 
   useEffect(() => {
     getRuns(user.no)
-    // console.log(runs)
-
   }, [user.no, change])
 
   const sortedRuns = runs.sort(function(a,b){
