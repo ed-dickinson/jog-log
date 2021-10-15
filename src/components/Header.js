@@ -6,7 +6,7 @@ import FormTab from './FormTab'
 
 const Username = ({user, metric, setMetric}) => {
 
-  const [actionsOpen, setActionsOpen] = useState(false)
+  // const [actionsOpen, setActionsOpen] = useState(false)
 
   const handleUnitChange = () => {
     setMetric(!metric)

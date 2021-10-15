@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import loginService from '../services/login'
-import shoeService from '../services/shoes'
+// import shoeService from '../services/shoes'
 import userService from '../services/user'
 
 import NewRunForm from './NewRunForm'

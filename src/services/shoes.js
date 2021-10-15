@@ -14,4 +14,6 @@ const addNew = async params => {
   return response.data
 }
 
-export default { addNew }
+const exported = { addNew }
+
+export default exported

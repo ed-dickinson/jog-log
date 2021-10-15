@@ -40,15 +40,43 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   const days_since_first = [];
   const now = new Date();
 
-  for (let d = new Date(runs[0].date); d <= now; d.setDate(d.getDate() + 1)) {
-    days_since_first.push(new Date(d));
+  for (let d = new Date(runs[runs.length-1].date); d <= now; d.setDate(d.getDate() + 1)) {
+    const matched_run = runs.find(run =>
+      new Date(run.date).toDateString() === new Date(d).toDateString()
+    );
+
+    // let matched_run = undefined;
+    // runs.forEach(run => {
+    //   if (new Date(run.date).toDateString() === new Date(d).toDateString()) {
+    //     console.log(run)
+    //     matched_run = run
+    //   }
+    //   console.log(new Date(d).toLocaleDateString(), new Date(run.date).toLocaleDateString())
+    // })
+
+    let empty_day = {date: new Date(d)};
+    console.log(matched_run)
+    if (matched_run) {
+      // console.log('match')
+      days_since_first.push(matched_run)
+    } else {
+      // days_since_first.push(new Date(d));
+      days_since_first.push(empty_day);
+    }
   }
 
   console.log(days_since_first)
 
   return(
     <div>
-      {days_since_first.map(day=><div>{day.getDate()}</div>)}
+      {days_since_first.map(day=>
+        <div>
+          {new Date(day.date).toDateString()} {new Date(day.date).toLocaleDateString()}
+          {day._id ?
+            <span> - {day.distance} miles</span>
+            : ''
+          }
+        </div>)}
       {runs.map(run =>
         <div key={run.no} className="TextDisplayRun">
           <span>{dateFormatter.traditionalShort(run.date)}</span>

@@ -44,4 +44,6 @@ const traditionalShort = (rawDateInput) => {
   // })
 }
 
-export default { traditional, traditionalShort, modern }
+const exported = { traditional, traditionalShort, modern }
+
+export default exported

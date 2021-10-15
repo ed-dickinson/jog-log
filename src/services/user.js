@@ -13,4 +13,6 @@ const getRuns = async userNo => {
   return response.data
 }
 
-export default { getShoes, getRuns }
+const exported = { getShoes, getRuns }
+
+export default exported
