@@ -40,10 +40,16 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   const days_since_first = [];
   const now = new Date();
 
+  const by_weeks = [[]];
+
   for (let d = new Date(runs[runs.length-1].date); d <= now; d.setDate(d.getDate() + 1)) {
+  // for (let d = now; d >= new Date(runs[runs.length-1].date); d.setDate(d.getDate() - 1)) {
+
     const matched_run = runs.find(run =>
       new Date(run.date).toDateString() === new Date(d).toDateString()
     );
+
+
 
     // let matched_run = undefined;
     // runs.forEach(run => {
@@ -55,22 +61,46 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     // })
 
     let empty_day = {date: new Date(d)};
-    console.log(matched_run)
+    // console.log(d.getDay(), d, ((now - d) / (3600000*24) / 7))
+    // console.log(now.getDay())
+
+    let week = Math.floor((now - d) / ((3600000*24)) / 7)
+    // console.log(now.getDay(), d.getDay())
+
+    //this could be an issue
+    if (now.getDay() < d.getDay()) {week = week - 1; console.log(week)}
+
+    if (by_weeks[week] === undefined) {by_weeks[week] = []}
+
     if (matched_run) {
       // console.log('match')
+      matched_run.week = week;
       days_since_first.push(matched_run)
+
+      by_weeks[week][d.getDay()] = matched_run
     } else {
       // days_since_first.push(new Date(d));
+      empty_day.week = week;
       days_since_first.push(empty_day);
+
+      by_weeks[week][d.getDay()] = empty_day
     }
   }
 
-  console.log(days_since_first)
+  const reversed_days = days_since_first.sort(function(a,b){
+    return new Date(b.date) - new Date(a.date);
+  })
 
   return(
-    <div>
-      {days_since_first.map(day=>
+    <div className="WeekDisplay">
+      {by_weeks.map(by_week=>
+        <div className="Week">{by_week.map(by_day=>
+          <span className="Day">({by_day.distance})</span>
+        )}</div>
+      )}
+      {reversed_days.map(day=>
         <div>
+          {day.week} -
           {new Date(day.date).toDateString()} {new Date(day.date).toLocaleDateString()}
           {day._id ?
             <span> - {day.distance} miles</span>
