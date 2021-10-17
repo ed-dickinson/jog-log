@@ -68,8 +68,9 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     // console.log(now.getDay(), d.getDay())
 
     //this could be an issue
-    if (now.getDay() < d.getDay()) {week = week - 1; console.log(week)}
+    if (now.getDay() >= d.getDay()) {week = week - 0; }
 
+    //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
 
     if (matched_run) {
@@ -81,6 +82,8 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     } else {
       // days_since_first.push(new Date(d));
       empty_day.week = week;
+      empty_day.distance = 0;
+      empty_day.elevation = 0;
       days_since_first.push(empty_day);
 
       by_weeks[week][d.getDay()] = empty_day
@@ -91,12 +94,31 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     return new Date(b.date) - new Date(a.date);
   })
 
+  const day_names = ['Mon','Tue','Wed','Thur','Fri','Sat','Sun'];
+
+  console.log(by_weeks)
+
   return(
     <div className="WeekDisplay">
       {by_weeks.map(by_week=>
-        <div className="Week">{by_week.map(by_day=>
-          <span className="Day">({by_day.distance})</span>
-        )}</div>
+        <div className="Week">
+          <div>
+            <span style={{color:'orange'}}>WK{by_week[0].week}:&nbsp;</span>
+            {by_week.map(a=>a.distance).reduce((b,c)=>b+c)}mi
+            <span style={{color:'orange'}}> —&nbsp;</span>
+            {by_week.map(a=>a.elevation).reduce((b,c)=>b+c)}ft
+          </div>
+          {by_week.map(by_day=>
+            <span className="Day">
+              <div
+                style={{borderBottom: `${by_day.distance*5}px solid black`}}
+                className="Run"
+              >
+                {day_names[new Date(by_day.date).getDay()]}({by_day.distance})-wk{by_day.week}
+              </div>
+            </span>
+          )}
+        </div>
       )}
       {reversed_days.map(day=>
         <div>
