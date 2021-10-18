@@ -68,7 +68,9 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     // console.log(now.getDay(), d.getDay())
 
     //this could be an issue
-    if (now.getDay() >= d.getDay()) {week = week - 0; }
+    // if (now.getDay() >= d.getDay()) {week = week + 1; }
+    if (now.getDay() < d.getDay()) {week = week + 1; }
+    if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
 
     //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
@@ -78,7 +80,8 @@ const WeekDisplay = ({runs, shoes, metric}) => {
       matched_run.week = week;
       days_since_first.push(matched_run)
 
-      by_weeks[week][d.getDay()] = matched_run
+      //this shifts week start sunday > monday
+      by_weeks[week][d.getDay()===0?6:d.getDay()-1] = matched_run
     } else {
       // days_since_first.push(new Date(d));
       empty_day.week = week;
@@ -86,7 +89,14 @@ const WeekDisplay = ({runs, shoes, metric}) => {
       empty_day.elevation = 0;
       days_since_first.push(empty_day);
 
-      by_weeks[week][d.getDay()] = empty_day
+      by_weeks[week][d.getDay()===0?6:d.getDay()-1] = empty_day
+    }
+  }
+
+  // make fake days to pad out week
+  for (let i = 0; i < by_weeks[by_weeks.length-1].length; i++) {
+    if (by_weeks[by_weeks.length-1][i] === undefined) {
+      by_weeks[by_weeks.length-1][i] = {week: by_weeks[by_weeks.length-1][6].week, distance: 0, elevation: 0}
     }
   }
 
@@ -94,16 +104,16 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     return new Date(b.date) - new Date(a.date);
   })
 
-  const day_names = ['Mon','Tue','Wed','Thur','Fri','Sat','Sun'];
+  const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  console.log(by_weeks)
+  // console.log(by_weeks)
 
   return(
     <div className="WeekDisplay">
       {by_weeks.map(by_week=>
-        <div className="Week">
+        <div className="Week" key={by_week.week}>
           <div>
-            <span style={{color:'orange'}}>WK{by_week[0].week}:&nbsp;</span>
+            <span style={{color:'orange', fontWeight:'bold'}}>WK{by_week[0].week}:&nbsp;</span>
             {by_week.map(a=>a.distance).reduce((b,c)=>b+c)}mi
             <span style={{color:'orange'}}> —&nbsp;</span>
             {by_week.map(a=>a.elevation).reduce((b,c)=>b+c)}ft
@@ -114,7 +124,9 @@ const WeekDisplay = ({runs, shoes, metric}) => {
                 style={{borderBottom: `${by_day.distance*5}px solid black`}}
                 className="Run"
               >
-                {day_names[new Date(by_day.date).getDay()]}({by_day.distance})-wk{by_day.week}
+                {new Date(by_day.date).getDate()}/{new Date(by_day.date).getMonth()}<br />
+                {day_names[new Date(by_day.date).getDay()]}
+                ({by_day.distance})-wk{by_day.week}
               </div>
             </span>
           )}

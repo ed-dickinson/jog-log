@@ -244,7 +244,7 @@ main {width: 80%; margin: auto;}
 .WeekDisplay .Week .Day {
   width: calc(100% / 7);
   display: inline-block;
-
+  font-size: 14px;
 }
 
 .WeekDisplay .Day .Run {
