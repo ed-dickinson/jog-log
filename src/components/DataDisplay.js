@@ -96,7 +96,9 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   // make fake days to pad out week
   for (let i = 0; i < by_weeks[by_weeks.length-1].length; i++) {
     if (by_weeks[by_weeks.length-1][i] === undefined) {
-      by_weeks[by_weeks.length-1][i] = {week: by_weeks[by_weeks.length-1][6].week, distance: 0, elevation: 0}
+      by_weeks[by_weeks.length-1][i] = {
+        week: by_weeks[by_weeks.length-1][6].week, distance: 0, elevation: 0
+      }
     }
   }
 
@@ -124,9 +126,12 @@ const WeekDisplay = ({runs, shoes, metric}) => {
                 style={{borderBottom: `${by_day.distance*5}px solid black`}}
                 className="Run"
               >
-                {new Date(by_day.date).getDate()}/{new Date(by_day.date).getMonth()}<br />
-                {day_names[new Date(by_day.date).getDay()]}
-                ({by_day.distance})-wk{by_day.week}
+                <div style={{fontSize:0}}>
+                  {new Date(by_day.date).getDate()}/{new Date(by_day.date).getMonth()}-
+                  {day_names[new Date(by_day.date).getDay()]}(w{by_day.week})
+                </div>
+                {by_day.distance>0 &&
+                <div className="RunData">{by_day.distance}mi</div>}
               </div>
             </span>
           )}
@@ -141,17 +146,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
             : ''
           }
         </div>)}
-      {runs.map(run =>
-        <div key={run.no} className="TextDisplayRun">
-          <span>{dateFormatter.traditionalShort(run.date)}</span>
-
-          <span>{run.distance} miles</span>
-          <span>{run.elevation} ft</span>
-          <span>{shoes.find(shoe => shoe.no === run.shoe).name} ({run.shoe})</span>
-          <div className="Description"> &nbsp; {run.description}</div>
-        </div>
-
-      )}
+      
     </div>
   )
 }
