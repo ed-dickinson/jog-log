@@ -251,7 +251,9 @@ main {width: 80%; margin: auto;}
 .WeekDisplay .Day .Run {
   width: 90%;
   left: 5%; position: relative;
-
+  /* color: white; background-color: black;
+  padding-right: 2px;
+  line-height: 1.1; */
 }
 .WeekDisplay .Day .Run .RunData {
   text-align: right;
