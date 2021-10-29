@@ -94,6 +94,8 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
         onChange={({target}) => setRunDate(target.value)}
       /><br />
 
+      <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noopener">(Find your distance/elevation...)</a></div>
+
       <label>Description:</label><br />
       <textarea
         type="textarea" name="description"

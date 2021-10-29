@@ -79,12 +79,8 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     <div className="WeekDisplay">
       {by_weeks.map(by_week=>
         <div className="Week" key={by_week.week}>
-          <div>
-            <span style={{color:'orange', fontWeight:'bold'}}>WK{by_week[0].week}:&nbsp;</span>
-            {by_week.map(a=>a.distance).reduce((b,c)=>b+c)}mi
-            <span style={{color:'orange'}}> —&nbsp;</span>
-            {by_week.map(a=>a.elevation).reduce((b,c)=>b+c)}ft
-          </div>
+
+
           {by_week.map(by_day=>
             <span className="Day">
               <div
@@ -100,6 +96,13 @@ const WeekDisplay = ({runs, shoes, metric}) => {
               </div>
             </span>
           )}
+          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
+          <div className="WeekLabel">
+            <span style={{color:'orange', fontWeight:'bold'}}>WK{by_week[0].week}:&nbsp;</span>
+            {by_week.map(a=>a.distance).reduce((b,c)=>b+c)}mi
+            <span style={{color:'orange'}}> —&nbsp;</span>
+            {by_week.map(a=>a.elevation).reduce((b,c)=>b+c)}ft
+          </div>
         </div>
       )}
       {reversed_days.map(day=>

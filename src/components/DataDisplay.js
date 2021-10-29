@@ -19,7 +19,6 @@ const DisplaySelector = ({displayType, setDisplayType}) => {
 
 const TextDisplay = ({runs, shoes, metric}) => {
 
-
   return(
     <div>
       {runs.map(run =>
