@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import userService from '../services/user'
 import dateFormatter from '../services/dateFormatter'
 import WeekDisplay from './displays/WeekDisplay'
+import FortnightDisplay from './displays/FortnightDisplay'
 
 const DisplaySelector = ({displayType, setDisplayType}) => {
   const displayTypes = ['Text', 'Week', 'Fortnight', 'Month', 'None']
@@ -77,7 +78,8 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
       <DisplaySelector displayType={displayType} setDisplayType={setDisplayType} />
 
       {displayType === "Text" && <TextDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
-      {displayType === "Week" && <WeekDisplay runs={sortedRuns} shoes={shoes}/>}
+      {displayType === "Week" && <WeekDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
+      {displayType === "Fortnight" && <FortnightDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
 
 
     </div>

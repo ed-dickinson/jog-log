@@ -241,8 +241,9 @@ main {width: 80%; margin: auto;}
   content: '';
 }
 
-.WeekDisplay .WeekLabel {
-  border-top: 3px solid orange;
+.WeekDisplay .Week {
+  border-bottom: 3px solid orange;
+  padding-top: 3px;
 }
 .WeekDisplay .Week .Day {
   width: calc(100% / 7);

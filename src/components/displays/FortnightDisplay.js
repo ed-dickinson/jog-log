@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const WeekDisplay = ({runs, shoes, metric}) => {
+const FortnightDisplay = ({runs, shoes, metric}) => {
 
   const days_since_first = [];
   const now = new Date();
@@ -8,7 +8,6 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   const by_weeks = [[]];
 
   for (let d = new Date(runs[runs.length-1].date); d <= now; d.setDate(d.getDate() + 1)) {
-  // for (let d = now; d >= new Date(runs[runs.length-1].date); d.setDate(d.getDate() - 1)) {
 
     const matched_run = runs.find(run =>
       new Date(run.date).toDateString() === new Date(d).toDateString()
@@ -16,26 +15,20 @@ const WeekDisplay = ({runs, shoes, metric}) => {
 
 
 
-    // let matched_run = undefined;
-    // runs.forEach(run => {
-    //   if (new Date(run.date).toDateString() === new Date(d).toDateString()) {
-    //     console.log(run)
-    //     matched_run = run
-    //   }
-    //   console.log(new Date(d).toLocaleDateString(), new Date(run.date).toLocaleDateString())
-    // })
-
     let empty_day = {date: new Date(d)};
-    // console.log(d.getDay(), d, ((now - d) / (3600000*24) / 7))
-    // console.log(now.getDay())
 
-    let week = Math.floor((now - d) / ((3600000*24)) / 7)
-    // console.log(now.getDay(), d.getDay())
+
+    let week = Math.floor((now - d) / ((3600000*24)) / 14)
+
 
     //this could be an issue
     // if (now.getDay() >= d.getDay()) {week = week + 1; }
-    if (now.getDay() < d.getDay()) {week = week + 1; }
-    if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
+    let day_in_fortnight = (now - d)/(3600000*24);
+    if (
+      (now.getDay() < d.getDay() && day_in_fortnight > 7)
+
+    ) {week = week + 1;}
+    if (d.getDay() === 0 && day_in_fortnight > 7) {week++} // SUNDAY > MONDAY
 
     //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
@@ -119,4 +112,4 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   )
 }
 
-export default WeekDisplay
+export default FortnightDisplay
