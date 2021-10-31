@@ -241,18 +241,23 @@ main {width: 80%; margin: auto;}
   content: '';
 }
 
-.WeekDisplay .Week {
+.WeekDisplay .Week, .FortnightDisplay .Week, .MonthDisplay .Month {
   border-bottom: 3px solid orange;
   padding-top: 3px;
 }
-.WeekDisplay .Week .Day {
+.Week .Day {
   width: calc(100% / 7);
   display: inline-block;
   font-size: 14px;
   vertical-align: bottom;
 }
+.Month .Day {
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: bottom;
+}
 
-.WeekDisplay .Day .Run {
+.WeekDisplay .Day .Run, .FortnightDisplay .Day .Run, .Month .Day .Run {
   width: 90%;
   left: 5%; position: relative;
   /* color: white; background-color: black;
@@ -264,9 +269,29 @@ main {width: 80%; margin: auto;}
   font-size: 12px;
 }
 
-.WeekDisplay .NoRuns {
+.NoRuns {
   text-align: center;
 }
 
+.WeekLabel {position: relative;}
+.WeekLabel .WeekDate {
+  position: absolute; top: 1em; left: 0;
+  color: orange; background-color: white;
+  display: none; cursor: pointer;
+  z-index: 10;
+}
+.WeekLabel > span:first-of-type:hover + .WeekDate {display: block;}
+
 svg.sad-face {height: 1.5em;  cursor: pointer; transition: 0.25s;}
 svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width: 0.5px;}
+
+.FortnightDisplay .Week .Day {
+  width: calc(100% / 14);
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: bottom;
+}
+
+.Month .Run .RunData {color: white; color: transparent;}
+
+.Month .Run:hover .RunData {color: orange;}

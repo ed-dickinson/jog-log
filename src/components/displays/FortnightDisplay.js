@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
+import dateFormatter from '../../services/dateFormatter'
 
-const FortnightDisplay = ({runs, shoes, metric}) => {
+const WeekDisplay = ({runs, shoes, metric}) => {
 
   const days_since_first = [];
   const now = new Date();
@@ -8,27 +9,24 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
   const by_weeks = [[]];
 
   for (let d = new Date(runs[runs.length-1].date); d <= now; d.setDate(d.getDate() + 1)) {
+  // for (let d = now; d >= new Date(runs[runs.length-1].date); d.setDate(d.getDate() - 1)) {
 
     const matched_run = runs.find(run =>
       new Date(run.date).toDateString() === new Date(d).toDateString()
     );
 
-
-
     let empty_day = {date: new Date(d)};
+    // console.log(d.getDay(), d, ((now - d) / (3600000*24) / 7))
+    // console.log(now.getDay())
 
-
-    let week = Math.floor((now - d) / ((3600000*24)) / 14)
-
+    let week = Math.floor((now - d) / ((3600000*24)) / 7)
+    // console.log(now.getDay(), d.getDay())
 
     //this could be an issue
     // if (now.getDay() >= d.getDay()) {week = week + 1; }
-    let day_in_fortnight = (now - d)/(3600000*24);
-    if (
-      (now.getDay() < d.getDay() && day_in_fortnight > 7)
-
-    ) {week = week + 1;}
-    if (d.getDay() === 0 && day_in_fortnight > 7) {week++} // SUNDAY > MONDAY
+    if (now.getDay() < d.getDay()) {week = week + 1; }
+    if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
+    if (now.getDay() === 0) {week--}; //sorts out sunday forcing everything a week back
 
     //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
@@ -66,18 +64,41 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
 
   const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  // console.log(by_weeks)
+  const by_fortnights = [];
 
+  for (let i = 0; i < by_weeks.length; i++) {
+    if (i%2!==1) {
+      let blank_week = [];
+      for (let j = 0; j <= 6; j++) {
+        blank_week[j] = {week: i+1, distance: 0, elevation: 0};
+      }
+      let first_week = (by_weeks[i+1]===undefined)?blank_week:by_weeks[i+1];
+
+      by_fortnights[i] = first_week.concat(by_weeks[i])
+    }
+  }
+
+  // by_weeks.forEach(week => {
+  //
+  // })
+
+  // console.log(by_weeks)
+  console.log(by_fortnights)
   return(
-    <div className="WeekDisplay">
-      {by_weeks.map(by_week=>
+    <div className="FortnightDisplay">
+      {by_fortnights.map(by_week=>
         <div className="Week" key={by_week.week}>
-          <div className="WeekLabel">
-            <span style={{color:'orange', fontWeight:'bold'}}>WK{by_week[0].week}:&nbsp;</span>
-            {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
-            <span style={{color:'orange'}}> —&nbsp;</span>
-            {(by_week.map(a=>a.elevation).reduce((b,c)=>b+c)/(metric?3.2808:1)).toFixed(0)}{metric?'m':'ft'}
-          </div>
+        <div className="WeekLabel">
+          <span style={{color:'orange', fontWeight:'bold'}}>
+            WK{by_week[0].week}&{by_week[0].week+1}:&nbsp;
+          </span>
+          <span className="WeekDate">
+            ({dateFormatter.tradShortNoYear(by_week[0].date)} - {dateFormatter.tradShortNoYear(by_week[13].date)})
+          </span>
+          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
+          <span style={{color:'orange'}}> —&nbsp;</span>
+          {(by_week.map(a=>a.elevation).reduce((b,c)=>b+c)/(metric?3.2808:1)).toFixed(0)}{metric?'m':'ft'}
+        </div>
 
           {by_week.map(by_day=>
             <span className="Day">
@@ -95,7 +116,7 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
               </div>
             </span>
           )}
-          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs this week<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
+          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs this fortnight<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
         </div>
       )}
       {reversed_days.map(day=>
@@ -112,4 +133,4 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
   )
 }
 
-export default FortnightDisplay
+export default WeekDisplay

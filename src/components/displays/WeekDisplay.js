@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import dateFormatter from '../../services/dateFormatter'
 
 const WeekDisplay = ({runs, shoes, metric}) => {
 
@@ -36,6 +37,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     // if (now.getDay() >= d.getDay()) {week = week + 1; }
     if (now.getDay() < d.getDay()) {week = week + 1; }
     if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
+    if (now.getDay() === 0) {week--}; //sorts out sunday forcing everything a week back
 
     //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
@@ -74,17 +76,21 @@ const WeekDisplay = ({runs, shoes, metric}) => {
   const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   // console.log(by_weeks)
-
   return(
     <div className="WeekDisplay">
       {by_weeks.map(by_week=>
         <div className="Week" key={by_week.week}>
-          <div className="WeekLabel">
-            <span style={{color:'orange', fontWeight:'bold'}}>WK{by_week[0].week}:&nbsp;</span>
-            {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
-            <span style={{color:'orange'}}> —&nbsp;</span>
-            {(by_week.map(a=>a.elevation).reduce((b,c)=>b+c)/(metric?3.2808:1)).toFixed(0)}{metric?'m':'ft'}
-          </div>
+        <div className="WeekLabel">
+          <span style={{color:'orange', fontWeight:'bold'}}>
+            WK{by_week[0].week}:&nbsp;
+          </span>
+          <span className="WeekDate">
+            ({dateFormatter.tradShortNoYear(by_week[0].date)} - {dateFormatter.tradShortNoYear(by_week[6].date)})
+          </span>
+          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
+          <span style={{color:'orange'}}> —&nbsp;</span>
+          {(by_week.map(a=>a.elevation).reduce((b,c)=>b+c)/(metric?3.2808:1)).toFixed(0)}{metric?'m':'ft'}
+        </div>
 
           {by_week.map(by_day=>
             <span className="Day">

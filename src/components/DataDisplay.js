@@ -3,9 +3,10 @@ import userService from '../services/user'
 import dateFormatter from '../services/dateFormatter'
 import WeekDisplay from './displays/WeekDisplay'
 import FortnightDisplay from './displays/FortnightDisplay'
+import MonthDisplay from './displays/MonthDisplay'
 
 const DisplaySelector = ({displayType, setDisplayType}) => {
-  const displayTypes = ['Text', 'Week', 'Fortnight', 'Month', 'None']
+  const displayTypes = ['Text', 'Week', 'Fortnight', 'Month', 'Year', 'None']
   return (
     <div className="DisplaySelector">
       {displayTypes.map(type =>
@@ -80,6 +81,7 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
       {displayType === "Text" && <TextDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
       {displayType === "Week" && <WeekDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
       {displayType === "Fortnight" && <FortnightDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
+      {displayType === "Month" && <MonthDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
 
 
     </div>
