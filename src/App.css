@@ -144,7 +144,8 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   right: 20px; position:
   relative;
 }
-.Form::after {content: ''; position: absolute; height: 60px; width: 100%; background: linear-gradient(white, rgba(255,255,255,0)); left: 0; top: calc(100% + 5px);}
+.Form::after, .ImportForm::after {content: ''; position: absolute; height: 60px; width: 100%; background: linear-gradient(white, rgba(255,255,255,0)); left: 0; top: calc(100% + 5px); transition: height 0.5s;}
+.ImportForm.hidden::after {height: 0;}
 
 main {width: 80%; margin: auto;}
 
@@ -161,6 +162,7 @@ main {width: 80%; margin: auto;}
   font-weight: 700;
   top: calc(50%); transform: translateY(-50%);
   font-size: 0.8em;
+  cursor: pointer;
 }
 .header-username:hover .Actions {
   height: 3em;
@@ -169,13 +171,16 @@ main {width: 80%; margin: auto;}
   font-weight: 600;
   font-size: 14px;
   position: absolute; top: 100%; right: 0;
-  background-color: PaleVioletRed;
+  /* background-color: PaleVioletRed; */
   cursor: pointer;
   text-align: right;
   /* display: inline-block; */
   height: 0%;
   overflow: hidden;
   transition: 0.5s;
+}
+.Actions div:hover {
+  opacity: 0.5;
 }
 /* .Actions div {height: 0;} */
 
@@ -193,6 +198,65 @@ main {width: 80%; margin: auto;}
 .NewShoeMessage {font-size: 14px;}
 
 .run-form-message {font-size: 14px; color: black; font-weight: 600;}
+
+.ImportForm {
+  position: absolute; width: 80%; left: 10%; bottom: 0;
+  transform: translateY(100%);
+  color: black;
+  z-index: 2;
+  background-color: white;
+  border-bottom: 5px solid orange;
+  font-size: 16px;
+  padding-bottom: 1em;
+  transition: transform 0.5s;
+}
+.ImportForm.hidden {
+  transform: translateY(0%);
+
+}
+.ImportForm h3 {
+  /* font-size: 1em; */
+  margin-bottom: 0.5em;
+}
+.ImportForm .CloseButton {font-size: 24px;}
+.ImportForm .ServiceName {
+  font-weight: bold;
+  color: orange;
+}
+
+.FileDropper > div {
+  border-radius: 0 !important;
+  border-color: orange !important;
+  padding: 2em !important;
+}
+/* inner */
+.FileDropper > div > div {
+  height: 0px !important; background-color: white !important;
+}
+.FileDropper > div > div > div {
+  top: -12px !important; right: -12px !important;
+}
+/* close button */
+.FileDropper  div > div > svg > path:nth-of-type(1) {
+  fill: orange !important; background-color: transparent !important;
+}
+.FileDropper  div > div > svg > path:nth-of-type(2) {
+  fill: white !important; background-color: transparent !important;
+}
+
+/* progress bar */
+.ImportForm > div > div > div > div:nth-child(3) > span {
+  left: -25% !important;
+  background-color: orange !important;
+  position: absolute !important;
+  /* transform: translateX(-50%); */
+  top: 1em;
+  border-radius: 0px !important;
+}
+/* file name */
+.ImportForm > div > div > div > div:nth-child(2) > span:nth-child(2) {
+
+}
 
 .PlotLink {font-size: 14px; text-align: right;}
 .PlotLink a {color: orange; text-decoration: none; border-bottom: 3px solid orange;}
@@ -298,3 +362,94 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .Month .Run .RunData {color: white; color: transparent;}
 
 .Month .Run:hover .RunData {color: orange;}
+
+.FileDrop {
+  border: 3px dashed orange;
+  margin: 1em 0;
+  position: relative;
+}
+.FileDrop .ProgressBar {
+  border: 3px solid white;
+
+  z-index: 0;
+  opacity: 1;
+  color: orange;
+  width: calc(100% - 6px); height: calc(100% - 6px);
+  position: absolute;
+}
+.FileDrop .ProgressBar div {
+
+  z-index: 0;
+  opacity: 1;
+  background-color: orange;
+  width: 0%; height: 100%;
+  position: absolute; top: 0; left: 0;
+  transition: 0.5s;
+}
+.FileDrop .ProgressBar div.done {
+  width: 100%;
+}
+/* file drop */
+.file-drop {
+  position: relative;
+  height: 3em;
+  width: 100%;
+  cursor: pointer;
+}
+.file-drop > .file-drop-target {
+  /* basic styles */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  z-index: 1;
+
+  /* horizontally and vertically center all content */
+  display: flex; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox;
+
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+
+  align-items: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+
+  align-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+
+  text-align: center;
+}
+
+.file-drop > .file-drop-target.file-drop-dragging-over-frame {
+  /* overlay a black mask when dragging over the frame */
+  border: 3px solid white;
+
+  z-index: 50;
+  opacity: 1;
+  background-color: orange;
+  color: white;
+  width: calc(100% - 6px); height: calc(100% - 6px);
+}
+
+.file-drop > .file-drop-target.file-drop-dragging-over-target {
+  /* turn stuff orange when we are dragging over the target */
+  color: orange;
+  background-color: white;
+  /* background-color: orange; */
+  /* background-color: orange; */
+  /* border: 0px solid orange;
+  width: calc(100% + 6px); height: calc(100% + 6px);
+  top: -3px; left: -3px; */
+}

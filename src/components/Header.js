@@ -2,18 +2,15 @@ import React, {useState} from 'react'
 import LogoTitle from './LogoTitle'
 import AnimatedLogo from './AnimatedLogo'
 import FormTab from './FormTab'
+import ImportForm from './ImportForm'
 
 
-const Username = ({user, metric, setMetric}) => {
+const Username = ({user, metric, setMetric, handleImport}) => {
 
   // const [actionsOpen, setActionsOpen] = useState(false)
 
   const handleUnitChange = () => {
     setMetric(!metric)
-  }
-
-  const handleImport = () => {
-    console.log('import here')
   }
 
   return (
@@ -32,6 +29,13 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setM
 
   const [token, setToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [importFormOpen, setImportFormOpen] = useState(false)
+
+  const handleImport = () => {
+    console.log('handle import')
+    setImportFormOpen(true);
+  }
   // const logo = props.logo
   return (
     <header className="App-header">
@@ -50,9 +54,11 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setM
 
       </a>
 
-      <Username user={user} metric={metric} setMetric={setMetric}/>
+      <Username user={user} metric={metric} setMetric={setMetric} handleImport={handleImport}/>
 
       <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
+
+      <ImportForm importFormOpen={importFormOpen} setImportFormOpen={setImportFormOpen}/>
 
     </header>
 
