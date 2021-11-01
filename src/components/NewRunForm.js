@@ -25,6 +25,13 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
   const [runShoe, setRunShoe] = useState(0);
   // console.log(runShoe)
 
+  const resetForm = () => {
+    setRunDistance('');
+    setRunElevation(0);
+    setRunDate(date_now);
+    setRunDescription('');
+  }
+
   useEffect(() => {
     // if (shoes.length > 0) {
       setRunShoe(shoes[0])
@@ -61,6 +68,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
         // setShoeMessage('Shoes added!')
         console.log(response)
         setRunFormMessage(response.message)
+        resetForm()
         setFormOpen(false)
         setChange(!change)
       } catch (exception) {

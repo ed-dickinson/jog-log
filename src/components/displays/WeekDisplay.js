@@ -39,6 +39,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
     if (now.getDay() === 0) {week--}; //sorts out sunday forcing everything a week back
 
+
     //construct the week array
     if (by_weeks[week] === undefined) {by_weeks[week] = []}
 
@@ -75,7 +76,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
 
   const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  // console.log(by_weeks)
+  console.log(by_weeks)
   return(
     <div className="WeekDisplay">
       {by_weeks.map(by_week=>
@@ -85,7 +86,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
             WK{by_week[0].week}:&nbsp;
           </span>
           <span className="WeekDate">
-            ({dateFormatter.tradShortNoYear(by_week[0].date)} - {dateFormatter.tradShortNoYear(by_week[6].date)})
+            ({dateFormatter.tradShortNoYear(by_week[0].date)} - {by_week[6]?dateFormatter.tradShortNoYear(by_week[6].date):'— '})
           </span>
           {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
           <span style={{color:'orange'}}> —&nbsp;</span>

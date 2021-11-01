@@ -120,18 +120,10 @@ const MonthDisplay = ({runs, shoes, metric}) => {
               </div>
             </span>
           )}
-          {(by_month.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs all month!<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
+          {(by_month.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs this month<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
         </div>
       )}
-      {reversed_days.map(day=>
-        <div>
-          {day.week} -
-          {new Date(day.date).toDateString()} {new Date(day.date).toLocaleDateString()}
-          {day._id ?
-            <span> - {day.distance} miles</span>
-            : ''
-          }
-        </div>)}
+
 
     </div>
   )
