@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 // import CSVReader1 from './CSVReader'
 import { FileDrop } from 'react-file-drop'
 import Papa from 'papaparse'
+import dateFormatter from '../services/dateFormatter'
 
 const CloseButton = ({action}) => {
   return(
@@ -13,9 +14,11 @@ const CloseButton = ({action}) => {
 
 const ImportForm = ({importFormOpen, setImportFormOpen}) => {
 
-  const [importData, setImportData] = useState(['test'])
+  const [importData, setImportData] = useState([])
+  const [importRuns, setImportRuns] = useState([])
   const [fileDropMessage, setFileDropMessage] = useState('Now drop your file here!')
   const [fileUploaded, setFileUploaded] = useState(false)
+  const [importStats, setImportStats] = useState({distance: 0, shoes: []})
 
   const handleFileDrop = (files, event) => {
     setFileUploaded(true);
@@ -41,6 +44,19 @@ const ImportForm = ({importFormOpen, setImportFormOpen}) => {
       header: true,
       complete: results => {
         console.log(results)
+        setImportData(results.data)
+        let runScrape = []
+        let distance = 0;
+        let shoes = [];
+        results.data.forEach(activity => {
+          if (activity['Activity Type'] === 'Run') {
+            runScrape.push(activity)
+            if (!shoes.includes(activity['Gear'])) {shoes.push(activity['Gear'])}
+            distance += (activity['Distance']/1609.344)
+          }
+        })
+        setImportRuns(runScrape)
+        setImportStats({distance, shoes})
       }
     });
   }
@@ -80,7 +96,24 @@ const ImportForm = ({importFormOpen, setImportFormOpen}) => {
           />
         </div>
 
-      {importData[0]}: {importData.length} in data array
+      {importData.length > 0 && <span>
+        Out of {importData.length} activities in the file, <strong>{importRuns.length}</strong> of them are runs.
+
+          {importRuns.length > 0 && <span>
+
+            <br /><br />
+            They stretch from <strong>{dateFormatter.tradCondensed(importRuns[0]['Activity Date'])}</strong> to <strong>{dateFormatter.tradCondensed(importRuns[importRuns.length-1]['Activity Date'])}</strong>: covering <strong>{importStats.distance.toFixed(0)}</strong> miles and going through <strong>{importStats.shoes.length}</strong> pairs of shoes.
+
+            <br /> <br/>
+            <div><span className="FakeA">Import them?</span></div>
+          </span>}
+
+
+      </span>}
+
+
+
+
 
     </div>
   )

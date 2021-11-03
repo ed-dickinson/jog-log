@@ -23,20 +23,31 @@
 
 /* opacity designing */
 
-/* .thigh, .shin, .foot {background-color: seagreen; } */
+.thigh, .shin, .foot {background-color: seagreen; }
 /* .hip-joint, .knee-joint, .ankle-joint {background-color: purple; opacity: 0.8;} */
 
 .hip-joint {transform: rotate(20deg);}
 .knee-joint {transform: rotate(-70deg);}
 .ankle-joint {transform: rotate(100deg);}
 
-.runner span {position: relative;}
-.runner span {font-size: 6em; top: -0.2em; left: -0.2em;}
+.runner span {position: relative;
+  position: absolute;
+}
+/* .runner span {font-size: 6em; top: -0.2em; left: -0.2em;} */
 
 /* letter pos */
-.thigh > span {top: 0.9em; left: -0.3em;}
-.shin > span {font-size: 5em; top: 0.5em; left: -0.4em;}
-.foot > span {font-size: 4em; top: 0.5em; left: -0.6em;}
+.thigh > span {top: 0.9em; left: -0.3em;
+  top: -10%; left: -1em;
+}
+.shin > span {font-size: 5em; top: 0.5em; left: -0.4em;
+  /* font-size: 5em;
+  top: -0.5em; left: -1.5em; */
+  /* position: absolute; */
+  top: -20%; left: -0.3em;
+}
+.foot > span {font-size: 4em; top: 0.5em; left: -0.6em;
+  top: 0%; left: -0.3em;
+}
 
 .foot > span > svg {transform: rotate(290deg);}
 
@@ -100,4 +111,8 @@
     0% {left: 120%;}
     100% {left: -20%;}
   }
+  /* @keyframes run {
+    0% {left: 20%;}
+    100% {left: 20%;}
+  } */
 }
