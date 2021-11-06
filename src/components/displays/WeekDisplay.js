@@ -86,7 +86,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
             WK{by_week[0].week}:&nbsp;
           </span>
           <span className="WeekDate">
-            ({dateFormatter.tradShortNoYear(by_week[0].date)} - {by_week[6]?dateFormatter.tradShortNoYear(by_week[6].date):'— '})
+            ({dateFormatter.traditionalShort(by_week[0].date)} - {by_week[6]?dateFormatter.traditionalShort(by_week[6].date):'— '})
           </span>
           {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
           <span style={{color:'orange'}}> —&nbsp;</span>

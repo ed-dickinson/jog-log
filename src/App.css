@@ -359,6 +359,9 @@ main {width: 80%; margin: auto;}
 
 .NoRuns {
   text-align: center;
+  /* display: inline; */
+  /* position: absolute; */
+  height: 0.25em; top: -1.5em; position: relative;
 }
 
 .WeekLabel {position: relative;}

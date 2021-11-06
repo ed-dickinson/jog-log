@@ -14,7 +14,7 @@ const MonthDisplay = ({runs, shoes, metric}) => {
 
   let start_date = new Date(runs[runs.length-1].date)
   // start_date.setDate(start_date - start_date.getDate() + 1)
-
+  let key = 0;
   for (let d = new Date(start_date.setDate(1)); d <= now; d.setDate(d.getDate() + 1)) {
   // for (let d = now; d >= new Date(runs[runs.length-1].date); d.setDate(d.getDate() - 1)) {
 
@@ -43,6 +43,7 @@ const MonthDisplay = ({runs, shoes, metric}) => {
     if (by_months[month_i] === undefined) {by_months[month_i] = []}
 
     if (matched_run) {
+      matched_run.key = key;
       // console.log('match')
       matched_run.month = month;
       days_since_first.push(matched_run)
@@ -50,6 +51,7 @@ const MonthDisplay = ({runs, shoes, metric}) => {
       //this shifts week start sunday > monday
       by_months[month_i][new Date(d).getDate()-1] = matched_run
     } else {
+      empty_day.key = key;
       // days_since_first.push(new Date(d));
       empty_day.month = month;
       empty_day.distance = 0;
@@ -58,6 +60,7 @@ const MonthDisplay = ({runs, shoes, metric}) => {
 
       by_months[month_i][new Date(d).getDate()-1] = empty_day
     }
+    key++;
   }
 
   // make fake days to pad out week
@@ -89,10 +92,13 @@ const MonthDisplay = ({runs, shoes, metric}) => {
   return(
     <div className="MonthDisplay">
       {by_months.map(by_month=>
-        <div className="Month" key={by_month[0].month}>
+        <div
+          className="Month"
+          key={`${by_month[0].month}-${new Date(by_month[0].date).getFullYear().toString().slice(2)}`
+        }>
         <div className="WeekLabel">
           <span style={{color:'orange', fontWeight:'bold'}}>
-            {month_names[by_month[0].month]} [{by_month[0].month}]:
+            {month_names[by_month[0].month]} '{new Date(by_month[0].date).getFullYear().toString().slice(2)}:&nbsp;
           </span>
 
           {(by_month.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
@@ -102,6 +108,7 @@ const MonthDisplay = ({runs, shoes, metric}) => {
 
           {by_month.map(by_day=>
             <span
+              key={by_day.key}
               className="Day"
               style={{width: `${100 / by_month.length}%`}}
             >

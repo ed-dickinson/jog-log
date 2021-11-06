@@ -23,7 +23,7 @@
 
 /* opacity designing */
 
-.thigh, .shin, .foot {background-color: seagreen; }
+/* .thigh, .shin, .foot {background-color: seagreen; } */
 /* .hip-joint, .knee-joint, .ankle-joint {background-color: purple; opacity: 0.8;} */
 
 .hip-joint {transform: rotate(20deg);}

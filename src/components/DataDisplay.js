@@ -11,8 +11,9 @@ const DisplaySelector = ({displayType, setDisplayType}) => {
     <div className="DisplaySelector">
       {displayTypes.map(type =>
         <span
-        className={`${displayType===type&&'selected'}`}
-        onClick={() => setDisplayType(type)}
+          key={type}
+          className={`${displayType===type&&'selected'}`}
+          onClick={() => setDisplayType(type)}
         >{type}</span>
       )}
     </div>
