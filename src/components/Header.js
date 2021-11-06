@@ -58,7 +58,7 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setM
 
       <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
 
-      <ImportForm importFormOpen={importFormOpen} setImportFormOpen={setImportFormOpen}/>
+      <ImportForm importFormOpen={importFormOpen} setImportFormOpen={setImportFormOpen} user={user} token={token} change={change} setChange={setChange} />
 
     </header>
 

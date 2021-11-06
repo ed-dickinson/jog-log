@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react'
 import { FileDrop } from 'react-file-drop'
 import Papa from 'papaparse'
 import dateFormatter from '../services/dateFormatter'
+import runService from '../services/run'
 
 const CloseButton = ({action}) => {
   return(
@@ -12,13 +13,15 @@ const CloseButton = ({action}) => {
   )
 }
 
-const ImportForm = ({importFormOpen, setImportFormOpen}) => {
+const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, setChange}) => {
 
   const [importData, setImportData] = useState([])
   const [importRuns, setImportRuns] = useState([])
   const [fileDropMessage, setFileDropMessage] = useState('Now drop your file here!')
   const [fileUploaded, setFileUploaded] = useState(false)
   const [importStats, setImportStats] = useState({distance: 0, shoes: []})
+  const [importProgress, setImportProgress] = useState(null)
+  // const [currentlyImporting, setCurrentlyImporting] = useState(null)
 
   const handleFileDrop = (files, event) => {
     setFileUploaded(true);
@@ -60,6 +63,80 @@ const ImportForm = ({importFormOpen, setImportFormOpen}) => {
       }
     });
   }
+
+  const doImport = async (run) => {
+    // event.preventDefault();
+
+    let runDetails = {
+      user: user.no,
+      no: run['Activity ID'],
+      shoe: run['Gear'],
+      distance: (run['Distance']/1609.34).toFixed(2),
+      elevation: (run['Elevation Gain']*3.2808).toFixed(0),
+      date: new Date(run['Activity Date']),
+      description: run['Activity Name'],
+      // imported: 'Strava',
+    }
+
+    try {
+      const response = await runService.importNew({
+        token: token,
+        formBody: runDetails,
+      })
+      console.log(response)
+      let i = importRuns.indexOf(run)
+
+      setImportProgress([i+1, importRuns.length, `Importing: ${run['Activity Name']}`])
+      if (i+1 === importRuns.length) {
+        console.log('done2!')
+        setImportProgress([i+1, importRuns.length, 'Done!'])
+      }
+    } catch (exception) {
+      console.log('summin wrong')
+      setTimeout(() => {
+        console.log('timeout')
+      }, 5000)
+    }
+    console.log('done3!')
+    setImportProgress([importRuns.length, importRuns.length, 'Done!'])
+    setChange(!change)
+
+  }
+
+  const startImport = () => {
+
+    console.log(importRuns)
+
+    setImportProgress([0,importRuns.length, `Importing: ${importRuns[0]['Activity Name']}`])
+    importRuns.forEach(run => {
+      // let runDetails = {
+      //   user: user.no,
+      //   no: run['Activity ID'],
+      //   shoe: run['Gear'],
+      //   distance: (run['Distance']/1609.34).toFixed(2),
+      //   elevation: (run['Elevation Gain']*3.2808).toFixed(0),
+      //   date: new Date(run['Activity Date']),
+      //   description: run['Activity Name'],
+      // }
+      // formattedRuns.push(runDetails)
+
+      let i = importRuns.indexOf(run)
+      // setImportProgress([i+1, importRuns.length, run])
+
+      // console.log(run)
+      doImport(run);
+
+    })
+    console.log('done!')
+    setImportProgress([importRuns.length,importRuns.length, `Done!`])
+    // doImport(formattedRuns)
+
+    // for (let i = 0; i < importRuns.length; i++) {
+    //
+    // }
+  }
+
+
   // if (formOpen) {
   //distance and elevation are causing that red error
   return(
@@ -105,7 +182,17 @@ const ImportForm = ({importFormOpen, setImportFormOpen}) => {
             They stretch from <strong>{dateFormatter.tradCondensed(importRuns[0]['Activity Date'])}</strong> to <strong>{dateFormatter.tradCondensed(importRuns[importRuns.length-1]['Activity Date'])}</strong>: covering <strong>{importStats.distance.toFixed(0)}</strong> miles and going through <strong>{importStats.shoes.length}</strong> pairs of shoes.
 
             <br /> <br/>
-            <div><span className="FakeA">Import them?</span></div>
+            <div><span className="FakeA" onClick={startImport}>Import them?</span></div>
+            {importProgress !== null &&
+              <div>
+                <div className="ImportProgressBar"><div>
+                  <div className="Bar" style={{width: (importProgress[0] / importProgress[1] * 100) + '%'}}></div>
+                  <div className="Label">{importProgress[0]} / {importProgress[1]}</div>
+                </div></div>
+
+                <div>{importProgress[2]}</div>
+              </div>
+            }
           </span>}
 
 

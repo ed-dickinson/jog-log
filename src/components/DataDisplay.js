@@ -21,6 +21,9 @@ const DisplaySelector = ({displayType, setDisplayType}) => {
 
 const TextDisplay = ({runs, shoes, metric}) => {
 
+  //shoe func!
+  //<span>{shoes.find(shoe => shoe.no === run.shoe).name} ({run.shoe})</span>
+
   return(
     <div>
       {runs.map(run =>
@@ -28,7 +31,7 @@ const TextDisplay = ({runs, shoes, metric}) => {
           <span>{dateFormatter.traditionalShort(run.date)}</span>
           <span>{metric?(run.distance/0.62137).toFixed(1):run.distance} {metric?'km':'miles'}</span>
           <span>{metric?(run.elevation/3.2808).toFixed(0):run.elevation} {metric?'m':'ft'}</span>
-          <span>{shoes.find(shoe => shoe.no === run.shoe).name} ({run.shoe})</span>
+
           <div className="Description"> &nbsp; {run.description}</div>
         </div>
 
