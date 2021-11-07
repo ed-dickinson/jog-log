@@ -4,6 +4,7 @@ import dateFormatter from '../services/dateFormatter'
 import WeekDisplay from './displays/WeekDisplay'
 import FortnightDisplay from './displays/FortnightDisplay'
 import MonthDisplay from './displays/MonthDisplay'
+import YearDisplay from './displays/YearDisplay'
 
 const DisplaySelector = ({displayType, setDisplayType}) => {
   const displayTypes = ['Text', 'Week', 'Fortnight', 'Month', 'Year', 'None']
@@ -86,6 +87,7 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
       {displayType === "Week" && <WeekDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
       {displayType === "Fortnight" && <FortnightDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
       {displayType === "Month" && <MonthDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
+      {displayType === "Year" && <YearDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
 
 
     </div>

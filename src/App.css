@@ -387,6 +387,45 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 
 .Month .Run:hover .RunData {color: orange;}
 
+
+/* Year */
+
+.Year {
+  position: relative;
+  border-bottom: 3px solid orange;
+  margin: 0.25em 0;
+  width: 100%;
+}
+
+.Year .Month {
+  position: absolute;
+  display: inline-block;
+  background-color: black; color: orange;
+  width: calc(100% / 12 * 0.9);
+  /* position: relative; */
+  /* margin-right: calc(-100% ); */
+  vertical-align: bottom;
+  bottom: 0;
+  cursor: pointer;
+
+}
+
+.Year .MonthInfo {
+  display: none;
+  position: absolute; bottom: 100%;
+  font-weight: bold;
+}
+
+.Year .Month:hover .MonthInfo {
+  display: block;
+  z-index: 2;
+}
+
+.Year .MonthInfo > span {
+  position: absolute; top: 100%; left: 1px;
+  font-weight: normal; color: white;
+}
+
 .FileDrop {
   border: 3px dashed orange;
   margin: 1em 0;
