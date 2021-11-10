@@ -387,6 +387,28 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 
 .Month .Run:hover .RunData {color: orange;}
 
+.Week {
+  position: relative;
+}
+.Week > div {
+  margin-top: 0.5em;
+}
+
+.WeekDisplay .Day, .FortnightDisplay .Day {
+  background-color: black;
+  position: absolute; bottom: 0;
+}
+
+.Week .Stats {
+  position: absolute; right: 0; top: 0;
+}
+
+.HoverDate {
+  position: absolute; bottom: calc(100% + 3px); left: 0;
+  color: orange; font-weight: bold;
+  overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap;
+}
+
 /* Mnth */
 .MonthDisplay div {
   position: relative;
@@ -397,14 +419,14 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   background-color: black;
   position: absolute; bottom: 0;
 }
-.MonthDisplay .RunInfo {
+.RunInfo {
   position: absolute;
   bottom: 100%; display: none;
 }
-.MonthDisplay .Day:hover .RunInfo {
+.Day:hover .RunInfo {
   display: block;
 }
-.MonthDisplay .RunInfoFixed {
+.RunInfoFixed {
   bottom: 70px; position: fixed; left: 50%; color: black; border: 3px solid orange;
   padding: 0.25em 0.25em; background-color: white; z-index: 4; max-width: 400px;
   transform: translateX(-50%); font-size: 1.1em;
@@ -412,7 +434,7 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .MonthDisplay .MonthStats {
   position: absolute; right: 0; top: 0.2em;
 }
-.MonthDisplay .NoRuns {
+.NoRuns {
   margin-top: 0.5em;
 }
 
@@ -452,6 +474,9 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .Year .MonthInfo > span {
   position: absolute; top: 100%; left: 1px;
   font-weight: normal; color: white;
+}
+.Year .Stats {
+  position: absolute; top: 0; right: 0;
 }
 
 .LoadMore {

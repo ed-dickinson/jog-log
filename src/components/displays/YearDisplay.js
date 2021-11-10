@@ -47,11 +47,14 @@ const YearDisplay = ({runs, shoes, metric}) => {
         <div className="Year" key={by_year.year}>
           <div className="YearLabel">
             <span style={{color:'orange', fontWeight:'bold'}}>
-              {by_year.year}:&nbsp;
+              {by_year.year}
             </span>
-            {(by_year.distance*(metric?1.6093:1)).toFixed(0)} {metric?'km':'mi'}
-            <span style={{color:'orange'}}> —&nbsp;</span>
-            {(by_year.elevation*(metric?0.3048:1)).toFixed(0)} {metric?'m':'ft'}
+
+            <span className="Stats">
+              {(by_year.distance*(metric?1.6093:1)).toFixed(0)} {metric?'km':'mi'}
+              <span style={{color:'orange'}}> —&nbsp;</span>
+              {(by_year.elevation*(metric?0.3048:1)).toFixed(0)} {metric?'m':'ft'}
+            </span>
           </div>
 
           <div style={{height: `${by_year.by_months.reduce(function(a,b){return Math.max(a, b);},0)}px`}}>

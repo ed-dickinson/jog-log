@@ -3,124 +3,121 @@ import dateFormatter from '../../services/dateFormatter'
 
 const WeekDisplay = ({runs, shoes, metric}) => {
 
-  const days_since_first = [];
+  const [loaded, setLoaded] = useState({state: 1, all: false})
+
   const now = new Date();
 
-  const by_weeks = [[]];
-
-  for (let d = new Date(runs[runs.length-1].date); d <= now; d.setDate(d.getDate() + 1)) {
-  // for (let d = now; d >= new Date(runs[runs.length-1].date); d.setDate(d.getDate() - 1)) {
-
-    const matched_run = runs.find(run =>
-      new Date(run.date).toDateString() === new Date(d).toDateString()
-    );
-
-
-
-    // let matched_run = undefined;
-    // runs.forEach(run => {
-    //   if (new Date(run.date).toDateString() === new Date(d).toDateString()) {
-    //     console.log(run)
-    //     matched_run = run
-    //   }
-    //   console.log(new Date(d).toLocaleDateString(), new Date(run.date).toLocaleDateString())
-    // })
-
-    let empty_day = {date: new Date(d)};
-    // console.log(d.getDay(), d, ((now - d) / (3600000*24) / 7))
-    // console.log(now.getDay())
-
-    let week = Math.floor((now - d) / ((3600000*24)) / 7)
-    // console.log(now.getDay(), d.getDay())
-
-    //this could be an issue
-    // if (now.getDay() >= d.getDay()) {week = week + 1; }
-    if (now.getDay() < d.getDay()) {week = week + 1; }
-    if (d.getDay() === 0) {week++} // SUNDAY > MONDAY
-    if (now.getDay() === 0) {week--}; //sorts out sunday forcing everything a week back
-
-
-    //construct the week array
-    if (by_weeks[week] === undefined) {by_weeks[week] = []}
-
-    if (matched_run) {
-      // console.log('match')
-      matched_run.week = week;
-      days_since_first.push(matched_run)
-
-      //this shifts week start sunday > monday
-      by_weeks[week][d.getDay()===0?6:d.getDay()-1] = matched_run
-    } else {
-      // days_since_first.push(new Date(d));
-      empty_day.week = week;
-      empty_day.distance = 0;
-      empty_day.elevation = 0;
-      days_since_first.push(empty_day);
-
-      by_weeks[week][d.getDay()===0?6:d.getDay()-1] = empty_day
-    }
+  const mondayise = (day) => {
+    let new_day = day === 0 ? 6 : day - 1;
+    return new_day
   }
 
-  // make fake days to pad out week
-  for (let i = 0; i < by_weeks[by_weeks.length-1].length; i++) {
-    if (by_weeks[by_weeks.length-1][i] === undefined) {
-      by_weeks[by_weeks.length-1][i] = {
-        week: by_weeks[by_weeks.length-1][6].week, distance: 0, elevation: 0
-      }
+  const getRuns = offset => {
+    let now2 = new Date(now)
+    let current_day = mondayise(now2.getDay())
+    const weeks_to_grab = 26
+    // 0 is sunday, 1 is monday
+
+    let week_array = []
+
+    for (let i = 0; i < weeks_to_grab; i++) {
+      let current_week = {week: 0, distance: 0, elevation: 0, by_days:[], longest: 0, start_date: undefined}
+      let start_date = new Date(now)
+
+      start_date.setDate(now.getDate() - current_day - ((offset * weeks_to_grab * 7) + (i * 7)))
+      start_date.setHours(0)
+      start_date.setMinutes(0)
+      start_date.setSeconds(0)
+
+      current_week.start_date = start_date
+      current_week.week = (offset * weeks_to_grab) + i
+
+      let end_date = new Date(start_date)
+      end_date.setDate(start_date.getDate() + 7)
+
+      runs.forEach(run => {
+        const date = new Date(run.date)
+        if (date > start_date && date < end_date) {
+
+          current_week.distance += run.distance
+          current_week.elevation += run.elevation
+          run.day = mondayise(date.getDay())
+          current_week.by_days[mondayise(date.getDay())] = run
+
+          if (current_week.longest < run.distance) {
+            current_week.longest = run.distance
+          }
+        }
+      })
+      week_array.push(current_week)
     }
+
+    return week_array
   }
 
-  const reversed_days = days_since_first.sort(function(a,b){
-    return new Date(b.date) - new Date(a.date);
-  })
+  let first_load_weeks = getRuns(0)
+  const [byWeeks, setByWeeks] = useState(first_load_weeks)
+
+
+
+  const handleLoadMore = () => {
+    let next_runs = getRuns(loaded.state)
+    setByWeeks(byWeeks.concat(next_runs))
+    setLoaded({...loaded, state: loaded.state + 1})
+  }
 
   const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const month_names = ["January","February","March","April","May","June","July",
+        "August","September","October","November","December"];
 
-  console.log(by_weeks)
   return(
     <div className="WeekDisplay">
-      {by_weeks.map(by_week=>
+
+      {byWeeks.map(by_week =>
         <div className="Week" key={by_week.week}>
-        <div className="WeekLabel">
+
           <span style={{color:'orange', fontWeight:'bold'}}>
-            WK{by_week[0].week}:&nbsp;
+              {dateFormatter.traditionalShort(by_week.start_date)}
           </span>
-          <span className="WeekDate">
-            ({dateFormatter.traditionalShort(by_week[0].date)} - {by_week[6]?dateFormatter.traditionalShort(by_week[6].date):'— '})
+
+          <span className="Stats">
+            {(by_week.distance*(metric?1.6093:1)).toFixed(0)} {metric?'km':'mi'}
+            <span style={{color:'orange'}}> —&nbsp;</span>
+            {(by_week.elevation*(metric?0.3048:1)).toFixed(0)} {metric?'m':'ft'}
           </span>
-          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c)/(metric?0.62137:1)).toFixed(1)}{metric?'km':'mi'}
-          <span style={{color:'orange'}}> —&nbsp;</span>
-          {(by_week.map(a=>a.elevation).reduce((b,c)=>b+c)/(metric?3.2808:1)).toFixed(0)}{metric?'m':'ft'}
-        </div>
 
-          {by_week.map(by_day=>
-            <span className="Day">
-              <div
-                style={{borderBottom: `${by_day.distance*5}px solid black`}}
-                className="Run"
-              >
-                <div style={{fontSize:0}}>
-                  {new Date(by_day.date).getDate()}/{new Date(by_day.date).getMonth()}-
-                  {day_names[new Date(by_day.date).getDay()]}(w{by_day.week})
-                </div>
-                {by_day.distance>0 &&
-                <div className="RunData">{metric?(by_day.distance/0.62137).toFixed(1):by_day.distance}{metric?'km':'mi'}</div>}
+          <div style={{height: `${by_week.longest*10}px`}}>
+            {by_week.by_days.map(by_day =>
+              <span className="Day" key={by_day.day} style={{
+                height: `${by_day.distance*10}px`,
+                left: `${(by_day.day)/7*100}%`,
+                width: `${90/7}%`
+              }}>
 
-              </div>
-            </span>
-          )}
-          {(by_week.map(a=>a.distance).reduce((b,c)=>b+c))===0?<div className="NoRuns">No runs this week<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
+                <span className="RunInfo">
+                  {(by_day.distance*(metric?1.6093:1)).toFixed(1)}{metric?'km':'mi'}
+                  <span className="RunInfoFixed">
+                    {(by_day.description)}
+                    <span className="HoverDate">{day_names[by_day.day]} {dateFormatter.traditionalShort(by_day.date)}</span>
+                  </span>
+                </span>
+
+              </span>
+            )}
+          </div>
+
+          {by_week.distance===0?<div className="NoRuns">No runs this week<svg className="sad-face" viewBox="-1 -1 7 5" xmlns="http://www.w3.org/2000/svg"><path d='M 1 4 A 1 1 0 0 1 4 4 M 2 1 A 1 1 0 0 1 0 1 A 1 1 0 0 1 2 1 M 5 1 A 1 1 0 0 1 3 1 A 1 1 0 0 1 5 1'></path></svg></div>:''}
+
         </div>
       )}
-      {reversed_days.map(day=>
-        <div>
-          {day.week} -
-          {new Date(day.date).toDateString()} {new Date(day.date).toLocaleDateString()}
-          {day._id ?
-            <span> - {day.distance} miles</span>
-            : ''
-          }
-        </div>)}
+
+
+      {(!loaded.all) &&
+        <div className="LoadMore">
+          <svg onClick={handleLoadMore} className="load-more" viewBox="-1 -1 6 7" xmlns="http://www.w3.org/2000/svg"><path d='M 4 2 A 1 1 0 0 1 0 2 M 0 0 L 2 2 L 4 0'></path></svg>
+        </div>
+      }
+
 
     </div>
   )
