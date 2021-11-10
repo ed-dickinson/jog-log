@@ -29,7 +29,9 @@ const TextDisplay = ({runs, shoes, metric}) => {
   return(
     <div>
       {runs.map(run =>
-        <div key={run.no} className="TextDisplayRun">
+        <div key={run.no} className="TextDisplayRun"
+          style={{borderBottom: `${3 + Math.round(run.distance*2)}px solid orange`}}
+        >
           <span>{dateFormatter.traditionalShort(run.date)}</span>
           <span>{metric?(run.distance/0.62137).toFixed(1):run.distance} {metric?'km':'miles'}</span>
           <span>{metric?(run.elevation/3.2808).toFixed(0):run.elevation} {metric?'m':'ft'}</span>

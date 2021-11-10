@@ -44,7 +44,9 @@ const YearDisplay = ({runs, shoes, metric}) => {
   return(
     <div className="YearDisplay">
       {by_years.map(by_year=>
-        <div className="Year" key={by_year.year}>
+        <div className="Year" key={by_year.year}
+          style={{borderBottom: `${3 + Math.round(by_year.distance/10)}px solid orange`}}
+        >
           <div className="YearLabel">
             <span style={{color:'orange', fontWeight:'bold'}}>
               {by_year.year}

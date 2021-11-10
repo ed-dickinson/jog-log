@@ -74,7 +74,9 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     <div className="WeekDisplay">
 
       {byWeeks.map(by_week =>
-        <div className="Week" key={by_week.week}>
+        <div className="Week" key={by_week.week}
+          style={{borderBottom: `${3 + Math.round(by_week.distance)}px solid orange`}}
+        >
 
           <span style={{color:'orange', fontWeight:'bold'}}>
               {dateFormatter.traditionalShort(by_week.start_date)}

@@ -60,7 +60,10 @@ const MonthDisplay = ({runs, shoes, metric}) => {
   return(
     <div className="MonthDisplay">
       {byMonths.map(by_month =>
-        <div className="Month" key={byMonths.indexOf(by_month)}>
+        <div className="Month"
+          key={byMonths.indexOf(by_month)}
+          style={{borderBottom: `${3 + Math.round(by_month.distance/4)}px solid orange`}}
+        >
           <span style={{color:'orange', fontWeight:'bold'}}>
           {month_names[by_month.month]} '{by_month.year.toString().slice(2)}</span>
 

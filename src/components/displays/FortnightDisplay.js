@@ -80,7 +80,9 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
     <div className="FortnightDisplay">
 
       {byWeeks.map(by_week =>
-        <div className="Week" key={by_week.week}>
+        <div className="Week" key={by_week.week}
+          style={{borderBottom: `${3 + Math.round(by_week.distance/3)}px solid orange`}}
+        >
 
           <span style={{color:'orange', fontWeight:'bold'}}>
               {dateFormatter.traditionalShort(by_week.start_date)}
