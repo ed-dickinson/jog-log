@@ -4,9 +4,57 @@ import './App.css';
 import Header from './components/Header'
 import DataDisplay from './components/DataDisplay'
 
+const RegisterForm = () => {
+  const handleRegister = () => {
+    console.log('handle register')
+  }
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [nickname, setNickname] = useState('')
+
+  return(
+    <div className="RegisterForm">
+      <form onSubmit={handleRegister}>
+        <span>
+          <label>Name: </label><br />
+          <input
+          type="text"
+          value={nickname}
+          onChange={({target}) => setNickname(target.value)}
+        />
+      </span>
+        <span>
+          <label>Email: </label><br />
+          <input
+            type="text"
+            value={username}
+            onChange={({target}) => setUsername(target.value)}
+        />
+        </span>
+        <span>
+          <label>Password: </label><br />
+          <input
+            type="password"
+            value={password}
+            onChange={({target}) => setPassword(target.value)}
+          />
+        </span>
+        <div className="button-cont">
+          <button>Register</button>
+        </div>
+
+      </form>
+    </div>
+
+  )
+}
+
 const Intro = ({setUser}) => {
+  const [registerFormOpen, setRegisterFormOpen] = useState(false)
+
   const handleCreateAccountButton = () => {
     console.log('open create account form')
+    setRegisterFormOpen(true)
   }
 
   const handleMyDataButton = () => {
@@ -23,6 +71,7 @@ const Intro = ({setUser}) => {
       <p> Like everyone else, for a long time I used Strava, but I became more and more uneasy about putting the data of my natural body's movements in the hands of a somewhat faceless enterprise. Half out of a genuine fear of not-knowing what their intentions are — and half for the simple principle of it.</p>
       <p>Plus, I'm fed up of running with a Garmin watch — keeping it charged and worrying about pausing for to long if I want to take a moment to appreciate some beautiful vista. But I do still like keeping track of how far, and how often, I've run, so I wanted to make a way to do just that. And you're welcome to use it as well.</p>
       <p>So <span onClick={handleCreateAccountButton} className="FakeA">create an account</span> or have a look at it with <span onClick={handleMyDataButton} className="FakeA">my data</span>.</p>
+      {registerFormOpen && <RegisterForm />}
       <p></p>
       <p></p>
     </div>
