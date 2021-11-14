@@ -172,6 +172,22 @@ main {width: 80%; margin: auto;}
 }
 .IntroText p {padding-left: 10px; padding-right: 10px;}
 
+.IntroText h2 {
+  border: 3px solid orange; display: inline-block;
+   margin: 0; margin-left: 10px; padding: 0.25em 0.5em; font-weight: 800;
+   display: none;
+}
+
+svg.hello-h2 {
+  stroke: orange;
+  fill: none;
+  stroke-width: 0.6px;
+  /* height: 3em; */
+  width: 10em;
+  stroke-linecap: square;
+}
+
+
 .header-username {
   color:white;
   position: absolute;
@@ -327,6 +343,12 @@ main {width: 80%; margin: auto;}
 }
 .TextDisplayRun span:last-of-type::after {
   content: '';
+}
+
+.BackgroundHeight {
+  background-color: orange;
+  position: absolute;
+  bottom: 0; width: 100%;
 }
 
 .WeekDisplay .Week, .FortnightDisplay .Week, .MonthDisplay .Month {

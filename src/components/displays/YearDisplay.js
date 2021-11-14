@@ -15,9 +15,6 @@ const YearDisplay = ({runs, shoes, metric}) => {
   let start_date = new Date(runs[runs.length-1].date)
 
   let key = 0;
-  // for (let d = new Date(start_date.setDate(1)); d <= now; d.setDate(d.getDate() + 1)) {
-  //
-  // }
 
   runs.forEach(run => {
     const month = new Date(run.date).getMonth()
@@ -35,10 +32,6 @@ const YearDisplay = ({runs, shoes, metric}) => {
       by_years[year_index].by_months[month] += run.distance
     }
 
-    // const fromDate = new Date().setFullYear(now.getFullYear()-loadState[0])
-    // if (new Date(run.date).getFullYear() === fromDate) {
-    //   console.log('run in 2021')
-    // }
   })
 
   return(

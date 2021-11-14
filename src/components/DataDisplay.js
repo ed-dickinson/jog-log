@@ -50,17 +50,12 @@ const TextDisplay = ({runs, shoes, metric}) => {
 const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, metric}) => {
 
   const [runs, setRuns] = useState([])
-  const [displayType, setDisplayType] = useState('Text')
-
-  // const handleDisplayTypeChange = () => {
-  //
-  // }
+  const [displayType, setDisplayType] = useState('List')
 
   const getRuns = async (userNo) => {
     try {
       const response = await userService.getRuns(userNo)
       setRuns(response.runs)
-      // console.log(response.runs)
     } catch (exeption) {
       console.log('summin wrong')
       setTimeout(() => {
@@ -76,8 +71,6 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
   const sortedRuns = runs.sort(function(a,b){
     return new Date(b.date) - new Date(a.date);
   })
-
-  // console.log(shoes)
 
   return (
     <div className="DataDisplay AppBody">
