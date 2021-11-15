@@ -3,51 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header'
 import DataDisplay from './components/DataDisplay'
-
-const RegisterForm = () => {
-  const handleRegister = () => {
-    console.log('handle register')
-  }
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [nickname, setNickname] = useState('')
-
-  return(
-    <div className="RegisterForm">
-      <form onSubmit={handleRegister}>
-        <span>
-          <label>Name: </label><br />
-          <input
-          type="text"
-          value={nickname}
-          onChange={({target}) => setNickname(target.value)}
-        />
-      </span>
-        <span>
-          <label>Email: </label><br />
-          <input
-            type="text"
-            value={username}
-            onChange={({target}) => setUsername(target.value)}
-        />
-        </span>
-        <span>
-          <label>Password: </label><br />
-          <input
-            type="password"
-            value={password}
-            onChange={({target}) => setPassword(target.value)}
-          />
-        </span>
-        <div className="button-cont">
-          <button>Register</button>
-        </div>
-
-      </form>
-    </div>
-
-  )
-}
+import RegisterForm from './components/RegisterForm'
 
 const Intro = ({setUser}) => {
   const [registerFormOpen, setRegisterFormOpen] = useState(false)
