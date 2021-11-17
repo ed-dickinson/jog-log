@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://jog-log--api.herokuapp.com'
 
 const addNew = async params => {
   console.log(params)

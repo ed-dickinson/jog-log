@@ -99,6 +99,19 @@
 
 .runner svg { overflow: visible; height: 17px; position: absolute;}
 
+@media only screen and (max-width: 599px) {
+  .runner-cont {
+    position: fixed; bottom: 4.5em;  top: inherit;
+    animation: run 6s infinite linear;
+    transform: scale(0.3)
+  }
+}
+
+@keyframes run {
+  0% {left: 120%;}
+  100% {left: -20%;}
+}
+
 @media only screen and (min-width: 600px) {
   .runner-cont {
     position: fixed;
@@ -107,12 +120,21 @@
     transform: scale(0.4)
   }
 
-  @keyframes run {
-    0% {left: 120%;}
-    100% {left: -20%;}
-  }
+
   /* @keyframes run {
     0% {left: 20%;}
     100% {left: 20%;}
   } */
+}
+
+@media only screen and (min-width: 1000px) {
+  .runner-cont {
+    animation: run 12s infinite linear;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .runner-cont {
+    animation: run 14s infinite linear;
+  }
 }

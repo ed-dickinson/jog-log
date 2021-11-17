@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/user'
+const baseUrl = 'https://jog-log--api.herokuapp.com/user'
 
 const getShoes = async userNo => {
   const response = await axios.get(`${baseUrl}/${userNo}/shoes`)

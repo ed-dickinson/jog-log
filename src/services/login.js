@@ -1,10 +1,10 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/user'
+const baseUrl = 'https://jog-log--api.herokuapp.com'
 
 const login = async credentials => {
   console.log(credentials)
   const response = await axios.post(baseUrl + '/login', credentials)
-  // console.log(credentials)
+  
   return response.data
 }
 
