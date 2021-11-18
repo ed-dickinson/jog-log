@@ -73,8 +73,6 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
   }
 
   const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const month_names = ["January","February","March","April","May","June","July",
-        "August","September","October","November","December"];
 
   return(
     <div className="FortnightDisplay">
@@ -106,7 +104,7 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
                   {(by_day.distance*(metric?1.6093:1)).toFixed(1)}{metric?'km':'mi'}
                   <span className="RunInfoFixed">
                     {(by_day.description)}
-                    <span className="HoverDate">{day_names[by_day.day>6?by_day.day-7:by_day.day]} {dateFormatter.traditionalShort(by_day.date)}</span>
+                    <span className="RunInfoFixedDate">{day_names[by_day.day>6?by_day.day-7:by_day.day]} {dateFormatter.traditionalShort(by_day.date)}</span>
                   </span>
                 </span>
 

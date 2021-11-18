@@ -66,9 +66,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
     setLoaded({...loaded, state: loaded.state + 1})
   }
 
-  const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const month_names = ["January","February","March","April","May","June","July",
-        "August","September","October","November","December"];
+  // const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   return(
     <div className="WeekDisplay">
@@ -100,7 +98,7 @@ const WeekDisplay = ({runs, shoes, metric}) => {
                   {(by_day.distance*(metric?1.6093:1)).toFixed(1)}{metric?'km':'mi'}
                   <span className="RunInfoFixed">
                     {(by_day.description)}
-                    <span className="HoverDate">{day_names[by_day.day]} {dateFormatter.traditionalShort(by_day.date)}</span>
+                    <span className="RunInfoFixedDate"> {dateFormatter.dayAndDate(by_day.date)}</span>
                   </span>
                 </span>
 

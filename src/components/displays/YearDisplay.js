@@ -1,20 +1,19 @@
-import React, {useState} from 'react'
-import dateFormatter from '../../services/dateFormatter'
+import React from 'react'
 
 const months = ["January","February","March","April","May","June","July",
       "August","September","October","November","December"];
 
 const YearDisplay = ({runs, shoes, metric}) => {
 
-  const [loadState, setLoadState] = useState([1, true])
-  const [byYears, setByYears] = useState([])
+  // const [loadState, setLoadState] = useState([1, true])
+  // const [byYears, setByYears] = useState([])
   const by_years = []
 
   const now = new Date();
 
-  let start_date = new Date(runs[runs.length-1].date)
-
-  let key = 0;
+  // let start_date = new Date(runs[runs.length-1].date)
+  //
+  // let key = 0;
 
   runs.forEach(run => {
     const month = new Date(run.date).getMonth()

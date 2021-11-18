@@ -2,6 +2,7 @@
 const months = ["January","February","March","April","May","June","July",
       "August","September","October","November","December"];
 const monthsAbr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+const day_names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const modern = (rawDateInput) => {
   // runs.forEach(run => {
@@ -84,6 +85,16 @@ const tradShortNoYear = (rawDateInput) => {
   // })
 }
 
-const exported = { traditional, traditionalShort, tradCondensed, tradShortNoYear, modern }
+const dayAndDate = (rawDateInput) => {
+  const rawDateObj = new Date(rawDateInput);
+  const rawDate = {day: rawDateObj.getDay(), date: rawDateObj.getDate()}
+
+  const dayth = [1||11||21||31].some(x=>x===rawDate.date) ? 'st' : [2||12||22].some(x=>x===rawDate.date) ? 'nd' : 'th';
+
+  const formattedDate = `${day_names[rawDate.day]} ${rawDate.date}${dayth}`
+  return formattedDate;
+}
+
+const exported = { traditional, traditionalShort, tradCondensed, tradShortNoYear, modern, dayAndDate }
 
 export default exported

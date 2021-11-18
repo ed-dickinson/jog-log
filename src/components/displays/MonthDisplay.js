@@ -53,7 +53,6 @@ const MonthDisplay = ({runs, shoes, metric}) => {
     setLoaded({...loaded, state: loaded.state + 1})
   }
 
-  const day_names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const month_names = ["January","February","March","April","May","June","July",
         "August","September","October","November","December"];
 
@@ -85,6 +84,9 @@ const MonthDisplay = ({runs, shoes, metric}) => {
                   {(by_day.distance*(metric?1.6093:1)).toFixed(1)}{metric?'km':'mi'}
                   <span className="RunInfoFixed">
                     {(by_day.description)}
+                    <span className="RunInfoFixedDate">
+                      {(dateFormatter.dayAndDate(new Date(by_day.date)))}
+                    </span>
                   </span>
                 </span>
 

@@ -486,6 +486,9 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   padding: 0.25em 0.25em; background-color: white; z-index: 4; max-width: 400px;
   transform: translateX(-50%); font-size: 1.1em;
 }
+.RunInfoFixedDate {
+  position: absolute; top: 100%; right: -3px; background-color: orange; color: white; border: 3px solid orange;
+}
 .MonthDisplay .MonthStats {
   position: absolute; right: 0; top: 0.2em;
 }

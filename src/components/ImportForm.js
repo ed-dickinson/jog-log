@@ -120,7 +120,7 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
       // }
       // formattedRuns.push(runDetails)
 
-      let i = importRuns.indexOf(run)
+      // let i = importRuns.indexOf(run)
       // setImportProgress([i+1, importRuns.length, run])
 
       // console.log(run)
