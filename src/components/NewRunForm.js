@@ -20,10 +20,8 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
   const [runElevation, setRunElevation] = useState(0);
   const [runDate, setRunDate] = useState(date_now);
   const [runDescription, setRunDescription] = useState('');
-  // console.log(shoes[0])
-  // const firstShoeNo = shoes[0].no
   const [runShoe, setRunShoe] = useState(0);
-  // console.log(runShoe)
+
 
   const resetForm = () => {
     setRunDistance('');
@@ -43,11 +41,6 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
   const handleNewRun = async (event) => {
     event.preventDefault();
 
-    // console.log(shoes)
-    // if (shoes.length>0) {
-    //   setRunShoe(shoes[0].no)
-    // }
-    // console.log(runShoe)
     let formBody = {
       user: user.no,
       shoe: runShoe.no,
@@ -64,8 +57,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
           token: token,
           formBody,
         })
-        // setShoeFormOpen(false)
-        // setShoeMessage('Shoes added!')
+
         console.log(response)
         setRunFormMessage(response.message)
         resetForm()

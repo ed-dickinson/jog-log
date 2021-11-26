@@ -3,13 +3,13 @@ const baseUrl = 'https://jog-log--api.herokuapp.com/user'
 
 const getShoes = async userNo => {
   const response = await axios.get(`${baseUrl}/${userNo}/shoes`)
-  // console.log(response.data)
+
   return response.data
 }
 
 const getRuns = async userNo => {
   const response = await axios.get(`${baseUrl}/${userNo}/runs`)
-  // console.log(response.data)
+
   return response.data
 }
 

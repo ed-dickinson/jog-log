@@ -7,31 +7,23 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [nickname, setNickname] = useState('')
-  const [registerButtonText, setRegisterButtonText] =useState('Register')
+  const [registerButtonText, setRegisterButtonText] = useState('Register')
 
   const handleRegister = async (event) => {
     event.preventDefault()
-    console.log('handle register')
+
     if (registerButtonText !== 'Register') {
       return;
     }
-    // console.log('loggin in with', username, password)
+
     try {
       const response = await loginService.register({
         email: username, password, name: nickname,
       })
-      // setFormOpen(false)
-      // setUser(response.user)
-      // setToken(response.token)
+
       console.log(response.message)
       setRegisterButtonText('Registered!')
-      // getShoes(response.user.no)
-      // window.localStorage.setItem(
-      //   'loggedInJogLogUser', JSON.stringify({user:response.user, token:response.token})
-      // )
 
-      // setUsername('')
-      // setPassword('')
     } catch (exception) {
       console.log('something wrong in registering!')
       setTimeout(() => {

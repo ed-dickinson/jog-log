@@ -22,8 +22,6 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, set
 
 
   const getShoes = useCallback(async (userNo) => {
-    console.log('getshoes')
-    // console.log(shoes)
     // if (shoes === []) {
       try {
         const response = await userService.getShoes(userNo)
@@ -50,23 +48,19 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, set
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    // console.log('loggin in with', username, password)
+
     try {
       const response = await loginService.login({
         email: username, password,
       })
       setFormOpen(false)
       setUser(response.user)
-      // setUser(...user, token)
       setToken(response.token)
-      console.log(response.user)
-      // user.token = token
 
       getShoes(response.user.no)
       window.localStorage.setItem(
         'loggedInJogLogUser', JSON.stringify({user:response.user, token:response.token})
       )
-      console.log('break')
 
       setUsername('')
       setPassword('')
@@ -110,9 +104,7 @@ const Form = ({formOpen, setFormOpen, token, setToken, user, setUser, shoes, set
 
     </div>
   )
-// } else {
-//   return(<div>No form.</div>)
-// }
+
 }
 
 const FormTab = ({user, setUser, token, setToken, shoes, setShoes, change, setChange}) => {

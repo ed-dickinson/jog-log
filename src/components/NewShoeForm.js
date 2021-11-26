@@ -2,15 +2,17 @@ import React, {useState} from 'react'
 import shoeService from '../services/shoes'
 
 const NewShoeForm = ({token, user, setShoeFormOpen}) => {
+  
   const [shoeName, setShoeName] = useState('')
   const [shoeMessage, setShoeMessage] = useState('')
+
   const handleNewShoe = async (event) => {
     event.preventDefault()
     try {
       const response = await shoeService.addNew({
         token: token, user: user, shoeName: shoeName,
       })
-      // setShoeFormOpen(false)
+
       setShoeMessage('Shoes added!')
       console.log(response)
     } catch (exception) {

@@ -19,26 +19,15 @@
 .FakeA {
   border-bottom: 3px solid orange; font-weight: bold; color: orange;
   cursor: pointer; position: relative;
-  /* transition: 0.5s; */
-  /* z-index: 1; */
 }
 .FakeA:hover {
   background-color: orange; color: white;
   color: white;
 }
-/* .FakeA::before {
-  position: absolute;
-  content: ''; background-color: orange; width: 100%; height: 0%; bottom: 0; left: 0;
-  transition: 0.5s;
-  z-index: 0;
-}
-.FakeA:hover::before {height: 100%;} */
 
 svg.logo-title-svg {height: 100px; width: 140px; left: -0.6em; position: relative;}
 svg.logo-title-svg path {fill: none; stroke: white;
-  /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
   stroke-width: 0.5px; stroke-linecap:butt;
-  /* preserveAspectRatio: none;  */
 }
 
 .LogoTitle {position: relative; left: 10%; z-index: 6; width: 80%;}
@@ -48,10 +37,6 @@ svg.logo-title-svg path {fill: none; stroke: white;
 .App-header {
   background-color: PaleVioletRed;
   position: relative;
-  /* min-height: 100px; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
   justify-content: left;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -67,7 +52,6 @@ svg.logo-title-svg path {fill: none; stroke: white;
 
 .FormTab {
   position: absolute;
-  /* top: 100%; */
   bottom: 0;
   width: 80%;
   left: 10%;
@@ -86,7 +70,6 @@ svg.logo-title-svg path {fill: none; stroke: white;
   border-right: 5px solid orange;
   border-left: 5px solid orange;
   z-index: 1;
-
   top: calc(100% - 5px);
 }
 .Tab.hidden {
@@ -94,16 +77,12 @@ svg.logo-title-svg path {fill: none; stroke: white;
 }
 
 .Tab:hover {
-  /* background-color: gold; */
-  /* opacity: 0.8; */
   top: 100%;
 }
 
 svg.log-a-jog-svg, svg.log-in-svg {height: 40px; }
 svg.log-a-jog-svg path, svg.log-in-svg path {fill: none; stroke: white;
-  /* d: path('m0 30 l0 -30 l 30 0 l 0 30 l -30 0' );  */
   stroke-width: 0.5px; stroke-linecap:square;
-  /* preserveAspectRatio: none;  */
 }
 
 .CloseButton {
@@ -117,7 +96,6 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   color: orange;
   font-weight: 700;
   border-bottom: 5px solid orange;
-  /* border-radius: 0 0 15px 15px; */
   border-top: 0;
   padding: 10px;
   background-color: white;
@@ -126,22 +104,18 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
 }
 .Form.hidden {
   transform: translateY(0%);
-  /* display: none; */
 }
 .Form label {
-  /* border: 3px solid orange; */
   background-color: white;
   color: orange;
   font-size: 14px;
-  /* vertical-align: bottom; */
 }
-/* .Form {font-size: 14px;} */
+
 .Form input {
   border: 0;
   border-bottom: 3px solid orange;
   background-color: white;
   color: black;
-  /* margin-right: 10px; */
 }
 .Form .form-units {
   margin-right: 20px;
@@ -214,7 +188,6 @@ svg.hello-h2 {
   stroke: orange;
   fill: none;
   stroke-width: 0.6px;
-  /* height: 3em; */
   width: 10em;
   stroke-linecap: square;
   left: -5px; position: relative;
@@ -238,10 +211,8 @@ svg.hello-h2 {
   font-weight: 600;
   font-size: 14px;
   position: absolute; top: 100%; right: 0;
-  /* background-color: PaleVioletRed; */
   cursor: pointer;
   text-align: right;
-  /* display: inline-block; */
   height: 0%;
   overflow: hidden;
   transition: 0.5s;
@@ -249,7 +220,6 @@ svg.hello-h2 {
 .Actions div:hover {
   opacity: 0.5;
 }
-/* .Actions div {height: 0;} */
 
 .no-shoes {font-size: 14px; color: black; font-weight: 400;}
 .no-shoes button.anchor-button {border: 0; border-bottom: 3px solid orange; text-decoration: none; color: orange; font-weight: 700; font-size: 14px; background-color: white; padding: 0; display: inline-block; border-top: 0px; margin-bottom: 0px;}
@@ -282,7 +252,6 @@ svg.hello-h2 {
 
 }
 .ImportForm h3 {
-  /* font-size: 1em; */
   margin-bottom: 0.5em;
 }
 .ImportForm .CloseButton {font-size: 24px;}
@@ -316,7 +285,6 @@ svg.hello-h2 {
   left: -25% !important;
   background-color: orange !important;
   position: absolute !important;
-  /* transform: translateX(-50%); */
   top: 1em;
   border-radius: 0px !important;
 }
@@ -340,8 +308,6 @@ svg.hello-h2 {
   font-weight: 700;
   border: 3px solid orange;
   color: orange;
-
-
 }
 .DisplaySelector > span {
   cursor: pointer;
@@ -364,11 +330,7 @@ svg.hello-h2 {
 .TextDisplayRun .Description {
   font-size: 14px;
 }
-/* .TextDisplayRun span::after {
-  content: ' — ';
-  color: orange;
-  font-weight: 900;
-} */
+
 .TextDisplayRun span::after {
   content: ' — ';
   color: orange;
@@ -403,9 +365,6 @@ svg.hello-h2 {
 .WeekDisplay .Day .Run, .FortnightDisplay .Day .Run, .Month .Day .Run {
   width: 90%;
   left: 5%; position: relative;
-  /* color: white; background-color: black;
-  padding-right: 2px;
-  line-height: 1.1; */
 }
 .WeekDisplay .Day .Run .RunData {
   text-align: right;
@@ -414,8 +373,6 @@ svg.hello-h2 {
 
 .NoRuns {
   text-align: center;
-  /* display: inline; */
-  /* position: absolute; */
   height: 0.25em; top: -1.5em; position: relative;
 }
 
@@ -458,11 +415,7 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   position: absolute; right: 0; top: 0;
 }
 
-.HoverDate {
-  position: absolute; bottom: calc(100% + 3px); left: 0;
-  color: orange; font-weight: bold;
-  overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap;
-}
+
 
 /* Mnth */
 .MonthDisplay div {
@@ -486,8 +439,15 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   padding: 0.25em 0.25em; background-color: white; z-index: 4; max-width: 400px;
   transform: translateX(-50%); font-size: 1.1em;
 }
+.HoverDate {
+  position: absolute; bottom: calc(100% + 3px); left: 0;
+  color: orange; font-weight: bold;
+  overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap;
+}
 .RunInfoFixedDate {
-  position: absolute; top: 100%; right: -3px; background-color: orange; color: white; border: 3px solid orange;
+  top: 100%; right: -3px;
+  position: absolute; background-color: orange; color: white; border: 3px solid orange;
+  overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap;
 }
 .MonthDisplay .MonthStats {
   position: absolute; right: 0; top: 0.2em;
@@ -510,8 +470,6 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   display: inline-block;
   background-color: black; color: orange;
   width: calc(100% / 12 * 0.9);
-  /* position: relative; */
-  /* margin-right: calc(-100% ); */
   vertical-align: bottom;
   bottom: 0;
   cursor: pointer;
@@ -553,6 +511,52 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .LoadMore svg:hover path {
   d: path('M 4 3 A 1 1 0 0 1 0 3 M 0 1 L 2 3 L 4 1');
 }
+
+/* Stat DISPLAY */
+
+.Block {
+  position: relative;
+}
+/* .Record {
+  position: relative;
+} */
+.Heading {
+  border-bottom: 3px solid orange;
+  margin: 1em 0 0.5em;
+}
+
+.Block .Date {
+  position: absolute; right: 0;
+  background-color: white;
+  float:right;
+  vertical-align: top;
+}
+.StatDisplay .load-more {
+  height: 1.75em;
+}
+.StatDisplay .Records a {
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 0;
+  color: black;
+}
+.StatDisplay .Record {
+  /* margin-right: 6em; */
+  position: static;
+}
+.StatDisplay .Record span {
+  /* display: inline-block; */
+}
+.StatDisplay span {
+  vertical-align: top;
+}
+.StatDisplay .RecordTitle {
+  display: inline-block; position: relative;
+  /* height: 1em; */
+  max-width: calc(100% - 11em);
+}
+
+/*  */
 
 .FileDrop {
   border: 3px dashed orange;
@@ -638,11 +642,6 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   /* turn stuff orange when we are dragging over the target */
   color: orange;
   background-color: white;
-  /* background-color: orange; */
-  /* background-color: orange; */
-  /* border: 0px solid orange;
-  width: calc(100% + 6px); height: calc(100% + 6px);
-  top: -3px; left: -3px; */
 }
 
 .ImportProgressBar {

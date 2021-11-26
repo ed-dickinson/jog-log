@@ -34,8 +34,6 @@ const Intro = ({setUser}) => {
   )
 }
 
-// {user === null && <Intro />}
-
 const Main = ({user, setUser, shoes, change, setChange, metric}) => {
   return(
     <main>

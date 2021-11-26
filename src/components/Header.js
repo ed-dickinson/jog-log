@@ -7,8 +7,6 @@ import ImportForm from './ImportForm'
 
 const Username = ({user, metric, setMetric, handleImport}) => {
 
-  // const [actionsOpen, setActionsOpen] = useState(false)
-
   const handleUnitChange = () => {
     setMetric(!metric)
   }
@@ -33,10 +31,9 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setM
   const [importFormOpen, setImportFormOpen] = useState(false)
 
   const handleImport = () => {
-    console.log('handle import')
     setImportFormOpen(true);
   }
-  // const logo = props.logo
+
   return (
     <header className="App-header">
       <div className="HeaderBG"></div>

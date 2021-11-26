@@ -46,7 +46,6 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
     Papa.parse(file, {
       header: true,
       complete: results => {
-        console.log(results)
         setImportData(results.data)
         let runScrape = []
         let distance = 0;
@@ -65,7 +64,6 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
   }
 
   const doImport = async (run) => {
-    // event.preventDefault();
 
     let runDetails = {
       user: user.no,
@@ -75,7 +73,6 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
       elevation: (run['Elevation Gain']*3.2808).toFixed(0),
       date: new Date(run['Activity Date']),
       description: run['Activity Name'],
-      // imported: 'Strava',
     }
 
     try {
@@ -88,7 +85,6 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
 
       setImportProgress([i+1, importRuns.length, `Importing: ${run['Activity Name']}`])
       if (i+1 === importRuns.length) {
-        console.log('done2!')
         setImportProgress([i+1, importRuns.length, 'Done!'])
       }
     } catch (exception) {
@@ -97,7 +93,7 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
         console.log('timeout')
       }, 5000)
     }
-    console.log('done3!')
+
     setImportProgress([importRuns.length, importRuns.length, 'Done!'])
     setChange(!change)
 
@@ -105,35 +101,13 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
 
   const startImport = () => {
 
-    console.log(importRuns)
-
     setImportProgress([0,importRuns.length, `Importing: ${importRuns[0]['Activity Name']}`])
     importRuns.forEach(run => {
-      // let runDetails = {
-      //   user: user.no,
-      //   no: run['Activity ID'],
-      //   shoe: run['Gear'],
-      //   distance: (run['Distance']/1609.34).toFixed(2),
-      //   elevation: (run['Elevation Gain']*3.2808).toFixed(0),
-      //   date: new Date(run['Activity Date']),
-      //   description: run['Activity Name'],
-      // }
-      // formattedRuns.push(runDetails)
-
-      // let i = importRuns.indexOf(run)
-      // setImportProgress([i+1, importRuns.length, run])
-
-      // console.log(run)
       doImport(run);
-
     })
-    console.log('done!')
-    setImportProgress([importRuns.length,importRuns.length, `Done!`])
-    // doImport(formattedRuns)
 
-    // for (let i = 0; i < importRuns.length; i++) {
-    //
-    // }
+    setImportProgress([importRuns.length,importRuns.length, `Done!`])
+
   }
 
 
