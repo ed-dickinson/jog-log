@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'https://jog-log--api.herokuapp.com/user'
+// const baseUrl = 'https://jog-log--api.herokuapp.com/user'
+const baseUrl = 'http://joglog-env.eba-mdjdjcrp.us-east-2.elasticbeanstalk.com/user'
 
 const login = async credentials => {
 

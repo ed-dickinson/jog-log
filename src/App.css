@@ -517,9 +517,6 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .Block {
   position: relative;
 }
-/* .Record {
-  position: relative;
-} */
 .Heading {
   border-bottom: 3px solid orange;
   margin: 1em 0 0.5em;
@@ -541,18 +538,13 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   color: black;
 }
 .StatDisplay .Record {
-  /* margin-right: 6em; */
   position: static;
-}
-.StatDisplay .Record span {
-  /* display: inline-block; */
 }
 .StatDisplay span {
   vertical-align: top;
 }
 .StatDisplay .RecordTitle {
   display: inline-block; position: relative;
-  /* height: 1em; */
   max-width: calc(100% - 11em);
 }
 
