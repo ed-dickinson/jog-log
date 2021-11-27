@@ -430,6 +430,10 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 .RunInfo {
   position: absolute;
   bottom: 100%; display: none;
+  background-color: white;
+  border-left: 2px solid white; left: -3px;
+  border-right: 2px solid white;
+
 }
 .Day:hover .RunInfo {
   display: block;
