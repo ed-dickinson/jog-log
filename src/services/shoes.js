@@ -1,6 +1,6 @@
 import axios from 'axios'
 // const baseUrl = 'https://jog-log--api.herokuapp.com/shoes'
-const baseUrl = 'http://joglog-env.eba-mdjdjcrp.us-east-2.elasticbeanstalk.com/shoes'
+const baseUrl = 'https://joglog-env.eba-mdjdjcrp.us-east-2.elasticbeanstalk.com/shoes'
 
 const addNew = async params => {
 
