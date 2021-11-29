@@ -4,7 +4,7 @@ import runService from '../services/run'
 import NewShoeForm from './NewShoeForm'
 
 const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange}) => {
-  console.log('runformrender');
+
   const now = new Date();
   const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
   const date_now = date.year + '-' + (date.month.toString().length>1?'':'0')  + date.month + '-' + (date.day.toString().length>1?'':'0') + date.day;
@@ -95,6 +95,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
       /><br />
 
       <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noreferrer">(Find your distance/elevation...)</a></div>
+      
 
       <label>Description:</label><br />
       <textarea

@@ -690,3 +690,25 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
     right: 30%;
   }
 }
+
+/* iframe */
+
+div#OnTheGoMap {
+  position: fixed; top: 5px; left: 5px; width: calc(100% - 16px);
+  background-color: white; height: calc(100% - 16px);
+  z-index: 99;
+}
+
+iframe {
+  border: solid 3px orange;
+}
+
+div#OnTheGoMap svg.close-svg {
+  height: 2em;
+  top: 40px; position: absolute; right: 0em;
+  filter: drop-shadow(0px 2px 0px white);
+}
+div#OnTheGoMap svg.close-svg:hover {
+  top: 42px;
+  filter: drop-shadow(0px 0px 0px white);
+}

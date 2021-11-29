@@ -66,6 +66,8 @@ const StatDisplay = ({runs, shoes, metric}) => {
     sort_shoes_date.sort(function(a, b){return b.date-a.date})
   }
 
+  console.log(runs)
+
   return(
     <div className="StatDisplay">
 

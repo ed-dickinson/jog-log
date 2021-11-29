@@ -5,16 +5,26 @@ import Header from './components/Header'
 import DataDisplay from './components/DataDisplay'
 import RegisterForm from './components/RegisterForm'
 
+const OnTheGoMap = ({setiFrameOpen}) => {
+
+  return(
+    <div id="OnTheGoMap">
+      <iframe src="https://onthegomap.com/#/create" title="OnTheGoMap" height={window.innerHeight - 16} width={window.innerWidth - 16}></iframe>
+      <span onClick={() => setiFrameOpen(false)} className="CloseButton">
+        <svg className="close-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 2 L 1 1 L 0 0 M 2 0 L 1 1 L 2 2'></path></svg>
+      </span>
+    </div>
+  )
+}
+
 const Intro = ({setUser}) => {
   const [registerFormOpen, setRegisterFormOpen] = useState(false)
 
   const handleCreateAccountButton = () => {
-    console.log('open create account form')
     setRegisterFormOpen(true)
   }
 
   const handleMyDataButton = () => {
-    console.log('fill with my data')
     setUser({_id:"61506aff33e8e9d9cc18fec5",
   no: 1, name: "ed's data"})
   }
@@ -35,12 +45,16 @@ const Intro = ({setUser}) => {
 }
 
 const Main = ({user, setUser, shoes, change, setChange, metric}) => {
+
   return(
     <main>
       {user === null ?
         <Intro setUser={setUser} /> :
         <DataDisplay user={user} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
       }
+
+
+
 
 
     </main>
@@ -53,10 +67,16 @@ function App() {
   const [change, setChange] = useState(false)
   const [metric, setMetric] = useState(false)
 
+  const [iFrameOpen, setiFrameOpen] = useState(false)
+
   return (
     <div className="App">
       <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} metric={metric} setMetric={setMetric}/>
       <Main user={user} setUser={setUser} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
+
+      // <div className="PlotLink" onClick={() => {setiFrameOpen(!iFrameOpen)}}>(Find your distance/elevation..i)</div>
+
+      {iFrameOpen && <OnTheGoMap setiFrameOpen={setiFrameOpen}/>}
     </div>
   );
 }
