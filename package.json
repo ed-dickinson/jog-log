@@ -37,5 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://joglog-env.eba-mdjdjcrp.us-east-2.elasticbeanstalk.com"
 }
