@@ -74,7 +74,8 @@ function App() {
       <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} metric={metric} setMetric={setMetric}/>
       <Main user={user} setUser={setUser} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
 
-      // <div className="PlotLink" onClick={() => {setiFrameOpen(!iFrameOpen)}}>(Find your distance/elevation..i)</div>
+      {// <div className="PlotLink" onClick={() => {setiFrameOpen(!iFrameOpen)}}>(Find your distance/elevation..i)</div>
+      }
 
       {iFrameOpen && <OnTheGoMap setiFrameOpen={setiFrameOpen}/>}
     </div>
