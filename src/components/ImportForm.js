@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react'
-// import CSVReader1 from './CSVReader'
 import { FileDrop } from 'react-file-drop'
 import Papa from 'papaparse'
 import dateFormatter from '../services/dateFormatter'
@@ -21,11 +20,9 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
   const [fileUploaded, setFileUploaded] = useState(false)
   const [importStats, setImportStats] = useState({distance: 0, shoes: []})
   const [importProgress, setImportProgress] = useState(null)
-  // const [currentlyImporting, setCurrentlyImporting] = useState(null)
 
   const handleFileDrop = (files, event) => {
     setFileUploaded(true);
-    console.log('onDrop!', files, event);
     setFileDropMessage(`${files[0].name} (${(files[0].size/1000).toFixed(0)}KB)`)
     parseFile(files[0])
   }
@@ -39,7 +36,6 @@ const ImportForm = ({importFormOpen, setImportFormOpen, user, token, change, set
     const { files } = event.target;
     // do something with your files...
     handleFileDrop(files, event)
-    // console.log(files)
   }
 
   const parseFile = file => {

@@ -3,7 +3,7 @@ import runService from '../services/run'
 
 import NewShoeForm from './NewShoeForm'
 
-const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange}) => {
+const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange, setiFrameOpen}) => {
 
   const now = new Date();
   const date = {year: now.getFullYear(), month: now.getMonth()+1, day: now.getDate()}
@@ -94,8 +94,12 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
         onChange={({target}) => setRunDate(target.value)}
       /><br />
 
-      <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noreferrer">(Find your distance/elevation...)</a></div>
-      
+      {
+        // <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noreferrer">(Find your distance/elevation...)</a></div>
+      }
+
+      <div className="PlotLink" ><span onClick={() => {setiFrameOpen('open')}}>(Find your distance/elevation...)</span></div>
+
 
       <label>Description:</label><br />
       <textarea

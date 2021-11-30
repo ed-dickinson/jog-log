@@ -23,7 +23,7 @@ const Username = ({user, metric, setMetric, handleImport}) => {
   )
 }
 
-const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setMetric}) => {
+const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setMetric, setiFrameOpen}) => {
 
   const [token, setToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,7 +53,7 @@ const Header = ({user, setUser, shoes, setShoes, change, setChange, metric, setM
 
       <Username user={user} metric={metric} setMetric={setMetric} handleImport={handleImport}/>
 
-      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} />
+      <FormTab user={user} setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} setToken={setToken} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} setiFrameOpen={setiFrameOpen} />
 
       <ImportForm importFormOpen={importFormOpen} setImportFormOpen={setImportFormOpen} user={user} token={token} change={change} setChange={setChange} />
 

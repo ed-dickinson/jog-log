@@ -294,7 +294,7 @@ svg.hello-h2 {
 }
 
 .PlotLink {font-size: 14px; text-align: right;}
-.PlotLink a, a {color: orange; text-decoration: none; border-bottom: 3px solid orange;}
+.PlotLink a, a, .PlotLink span {color: orange; text-decoration: none; border-bottom: 3px solid orange; cursor: pointer;}
 .PlotLink a:hover, a:hover {
   background-color: orange; color: white;
 }
@@ -714,21 +714,36 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
 /* iframe */
 
 div#OnTheGoMap {
-  position: fixed; top: 5px; left: 5px; width: calc(100% - 16px);
-  background-color: white; height: calc(100% - 16px);
+  position: fixed; bottom: 5px; left: 5px;
+  background-color: white;
   z-index: 99;
+}
+
+div#OnTheGoMap.hidden {
+  display: none;
+}
+div#OnTheGoMap.shown {
+  /* display: none; */
 }
 
 iframe {
   border: solid 3px orange;
 }
 
-div#OnTheGoMap svg.close-svg {
+div#OnTheGoMap svg.close-svg, div#OnTheGoMap svg.shrink-svg {
   height: 2em;
   top: 40px; position: absolute; right: 0em;
   filter: drop-shadow(0px 2px 0px white);
+  cursor: pointer;
 }
-div#OnTheGoMap svg.close-svg:hover {
+div#OnTheGoMap svg.shrink-svg {
+  right: 2.5em;
+}
+div#OnTheGoMap svg:hover {
   top: 42px;
   filter: drop-shadow(0px 0px 0px white);
+}
+svg.shrink-svg {
+  stroke: orange;
+  stroke-linecap: square;
 }

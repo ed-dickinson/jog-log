@@ -5,14 +5,26 @@ import Header from './components/Header'
 import DataDisplay from './components/DataDisplay'
 import RegisterForm from './components/RegisterForm'
 
-const OnTheGoMap = ({setiFrameOpen}) => {
+const OnTheGoMap = ({iFrameOpen, setiFrameOpen}) => {
+
+  const [iFrameHeight, setiFrameHeight] = useState(window.innerHeight - 16)
 
   return(
-    <div id="OnTheGoMap">
-      <iframe src="https://onthegomap.com/#/create" title="OnTheGoMap" height={window.innerHeight - 16} width={window.innerWidth - 16}></iframe>
-      <span onClick={() => setiFrameOpen(false)} className="CloseButton">
+    <div id="OnTheGoMap" className={iFrameOpen === 'hidden' ? 'hidden' : 'shown'}>
+      <iframe src="https://onthegomap.com/#/create" title="OnTheGoMap" height={iFrameHeight} width={window.innerWidth - 16}></iframe>
+      <span onClick={() => setiFrameOpen('hidden')} className="CloseButton">
         <svg className="close-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 2 L 1 1 L 0 0 M 2 0 L 1 1 L 2 2'></path></svg>
       </span>
+      {iFrameHeight > window.innerHeight / 2 ?
+        <span onClick={() => setiFrameHeight(window.innerHeight / 2)} className="ShrinkButton">
+          <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5'></path></svg>
+        </span>
+        :
+        <span onClick={() => setiFrameHeight(window.innerHeight - 16)} className="GrowButton">
+          <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5 M 1 0.5 L 1 2.5'></path></svg>
+        </span>
+      }
+
     </div>
   )
 }
@@ -67,17 +79,17 @@ function App() {
   const [change, setChange] = useState(false)
   const [metric, setMetric] = useState(false)
 
-  const [iFrameOpen, setiFrameOpen] = useState(false)
+  const [iFrameOpen, setiFrameOpen] = useState('closed')
 
   return (
     <div className="App">
-      <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} metric={metric} setMetric={setMetric}/>
-      <Main user={user} setUser={setUser} shoes={shoes} change={change} setChange={setChange} metric={metric}/>
+      <Header logo={logo} user={user} setUser={setUser} shoes={shoes} setShoes={setShoes} change={change} setChange={setChange} metric={metric} setMetric={setMetric} setiFrameOpen={setiFrameOpen} />
+      <Main user={user} setUser={setUser} shoes={shoes} change={change} setChange={setChange} metric={metric} />
 
       {// <div className="PlotLink" onClick={() => {setiFrameOpen(!iFrameOpen)}}>(Find your distance/elevation..i)</div>
       }
 
-      {iFrameOpen && <OnTheGoMap setiFrameOpen={setiFrameOpen}/>}
+      {iFrameOpen !== 'closed' && <OnTheGoMap iFrameOpen={iFrameOpen} setiFrameOpen={setiFrameOpen}/>}
     </div>
   );
 }
