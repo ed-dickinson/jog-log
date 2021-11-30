@@ -7,6 +7,16 @@ import MonthDisplay from './displays/MonthDisplay'
 import YearDisplay from './displays/YearDisplay'
 import StatDisplay from './displays/StatDisplay'
 
+const LoadingAnimation = () => {
+  return(
+    <div className="LoadingAnim">
+      <span>
+        <svg className="loading" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 0 1'></path></svg>
+      </span>
+    </div>
+  )
+}
+
 const DisplaySelector = ({displayType, setDisplayType}) => {
   const displayTypes = ['List', 'Stats', 'Week', 'Fortnight', 'Month', 'Year', 'None']
   return (
@@ -51,13 +61,18 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
 
   const [runs, setRuns] = useState([])
   const [displayType, setDisplayType] = useState('List')
+  const [loading, setLoading] = useState('')
 
   const getRuns = async (userNo) => {
+    setLoading('loading')
     try {
       const response = await userService.getRuns(userNo)
+      setLoading('loaded')
       setRuns(response.runs)
+
     } catch (exeption) {
       console.log('summin wrong')
+      setLoading('failed')
       setTimeout(() => {
         console.log('timeout')
       }, 5000)
@@ -77,6 +92,8 @@ const DataDisplay = ({user, shoes, reRender, setReRender, change, setChange, met
 
       <div><strong>Your data:</strong> {runs.length} runs total, since {runs[0]?dateFormatter.traditionalShort(runs[0].date):''}</div><br />
       <DisplaySelector displayType={displayType} setDisplayType={setDisplayType} />
+
+      {loading === 'loading' && <LoadingAnimation />}
 
       {displayType === "List" && <TextDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}
       {displayType === "Week" && <WeekDisplay runs={sortedRuns} shoes={shoes} metric={metric}/>}

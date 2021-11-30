@@ -79,7 +79,7 @@ const StatDisplay = ({runs, shoes, metric}) => {
       <div>All-time run distance <OrangeDash /> <strong>{(total_distance*(metric?1.6093:1)).toFixed(0)} {metric?'km':'mi'}</strong> ({equators.toFixed(2)} Laps of the Equator)</div>
       <div>All-time run elevation <OrangeDash /> <strong>{(total_elevation*(metric?0.3048:1)).toFixed(0)} {metric?'m':'ft'}</strong> ({everests.toFixed(1)} Everests)</div>
       <br />
-      {typeof shoes !== undefined ?
+      {shoes.length !== 0 ?
         <div className="ShoeStats">
         <div>Shoes worn furthest <OrangeDash /> <strong>"{sort_shoes[0].name}" <OrangeHalfDash /> {(sort_shoes[0].distance*(metric?1.6093:1)).toFixed(1)} {metric?'km':'mi'}</strong></div>
         <div>Shoes had longest <OrangeDash /> <strong>"{sort_shoes_date[sort_shoes_date.length-1].name}" <OrangeHalfDash /> owned since {dateFormatter.traditional(sort_shoes_date[sort_shoes_date.length-1].date)}</strong></div>

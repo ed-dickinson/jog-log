@@ -552,6 +552,26 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   max-width: calc(100% - 11em);
 }
 
+.LoadingAnim {
+  text-align: center;
+}
+.LoadingAnim svg.loading path {
+  stroke: orange;
+  fill: none;
+  stroke-width: 0.5px;
+}
+.LoadingAnim svg {
+  height: 4em;
+  margin: auto;
+  margin-top: 2em;
+  animation: spin 1s infinite ease-in-out 0s;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg);}
+}
+
 /*  */
 
 .FileDrop {
