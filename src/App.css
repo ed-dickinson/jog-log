@@ -730,6 +730,11 @@ iframe {
   border: solid 3px orange;
 }
 
+/* .iFrameControls {
+  background-color: white; width: 2em; height: 2em; border: 3px solid orange;
+  position: absolute; right: 5px; top: 52px; padding: -10px;
+} */
+
 div#OnTheGoMap svg.close-svg, div#OnTheGoMap svg.shrink-svg {
   height: 2em;
   top: 40px; position: absolute; right: 0em;
@@ -740,10 +745,11 @@ div#OnTheGoMap svg.shrink-svg {
   right: 2.5em;
 }
 div#OnTheGoMap svg:hover {
-  top: 42px;
+  top: 42px; transition: 0.2s;
   filter: drop-shadow(0px 0px 0px white);
 }
 svg.shrink-svg {
   stroke: orange;
   stroke-linecap: square;
+
 }

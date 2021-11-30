@@ -12,18 +12,20 @@ const OnTheGoMap = ({iFrameOpen, setiFrameOpen}) => {
   return(
     <div id="OnTheGoMap" className={iFrameOpen === 'hidden' ? 'hidden' : 'shown'}>
       <iframe src="https://onthegomap.com/#/create" title="OnTheGoMap" height={iFrameHeight} width={window.innerWidth - 16}></iframe>
-      <span onClick={() => setiFrameOpen('hidden')} className="CloseButton">
-        <svg className="close-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 2 L 1 1 L 0 0 M 2 0 L 1 1 L 2 2'></path></svg>
+      <span className="iFrameControls">
+        <span onClick={() => setiFrameOpen('hidden')} className="CloseButton">
+          <svg className="close-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 2 L 1 1 L 0 0 M 2 0 L 1 1 L 2 2'></path></svg>
+        </span>
+        {iFrameHeight > window.innerHeight / 2 ?
+          <span onClick={() => setiFrameHeight(window.innerHeight / 2)} className="ShrinkButton">
+            <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5'></path></svg>
+          </span>
+          :
+          <span onClick={() => setiFrameHeight(window.innerHeight - 16)} className="GrowButton">
+            <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5 M 1 0.5 L 1 2.5'></path></svg>
+          </span>
+        }
       </span>
-      {iFrameHeight > window.innerHeight / 2 ?
-        <span onClick={() => setiFrameHeight(window.innerHeight / 2)} className="ShrinkButton">
-          <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5'></path></svg>
-        </span>
-        :
-        <span onClick={() => setiFrameHeight(window.innerHeight - 16)} className="GrowButton">
-          <svg className="shrink-svg" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 0 1.5 L 2 1.5 M 1 0.5 L 1 2.5'></path></svg>
-        </span>
-      }
 
     </div>
   )
