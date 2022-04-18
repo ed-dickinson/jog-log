@@ -16,6 +16,8 @@
   }
 }
 
+
+
 .FakeA {
   border-bottom: 3px solid orange; font-weight: bold; color: orange;
   cursor: pointer; position: relative;
@@ -48,7 +50,7 @@ svg.logo-title-svg path {fill: none; stroke: white;
   font-size: calc(5px + 1vmin);
 }
 
-.HeaderBG {width: 100%; height: 100%; background-color: PaleVioletRed; position: absolute; z-index: 5; }
+.HeaderBG {width: 100%; height: 200%; background-color: PaleVioletRed; position: absolute; z-index: 5; bottom: 0;}
 
 .FormTab {
   position: absolute;
@@ -329,6 +331,7 @@ svg.hello-h2 {
 }
 .TextDisplayRun .Description {
   font-size: 14px;
+  white-space: pre-wrap;
 }
 
 .TextDisplayRun span::after {
@@ -711,6 +714,35 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .LogoTitle .slogan {
+    width: 100%;
+  }
+  main, .LogoTitle, .FormTab, .ImportForm {
+    width: 90%;
+  }
+  .LogoTitle, .FormTab, .ImportForm {
+    left: 5%;
+  }
+
+  .Form input:first-of-type {
+    width: 8em;
+  }
+  .Form .form-units:first-of-type {
+    margin-right: 0;
+  }
+  .Form label:nth-of-type(2)::before, .Form label:nth-of-type(3)::before {
+    content: "\A";
+    white-space: pre;
+  }
+  .Form input:nth-of-type(2) {
+    width: 8em;
+  }
+  .Form .PlotLink {
+    margin: 0.5em 0;
+  }
+}
+
 /* iframe */
 
 div#OnTheGoMap {
@@ -729,11 +761,6 @@ div#OnTheGoMap.shown {
 iframe {
   border: solid 3px orange;
 }
-
-/* .iFrameControls {
-  background-color: white; width: 2em; height: 2em; border: 3px solid orange;
-  position: absolute; right: 5px; top: 52px; padding: -10px;
-} */
 
 div#OnTheGoMap svg.close-svg, div#OnTheGoMap svg.shrink-svg {
   height: 2em;
