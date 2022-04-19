@@ -45,10 +45,13 @@ const StatDisplay = ({runs, shoes, metric}) => {
 
   let total_distance = 0;
   let total_elevation = 0;
+  let total_words = 0;
 
   for (let i = 0; i < runs.length; i++) {
     total_distance += runs[i].distance;
     total_elevation += runs[i].elevation;
+    let words = runs[i].description.split('');
+    total_words += words.length;
   }
 
   let avg_run = total_distance / runs.length
@@ -66,7 +69,7 @@ const StatDisplay = ({runs, shoes, metric}) => {
     sort_shoes_date.sort(function(a, b){return b.date-a.date})
   }
 
-  console.log(runs)
+  // console.log(runs)
 
   return(
     <div className="StatDisplay">
@@ -77,7 +80,10 @@ const StatDisplay = ({runs, shoes, metric}) => {
       <div>Average run distance <OrangeDash /> <strong>{(avg_run*(metric?1.6093:1)).toFixed(1)} {metric?'km':'mi'}</strong></div>
       <br />
       <div>All-time run distance <OrangeDash /> <strong>{(total_distance*(metric?1.6093:1)).toFixed(0)} {metric?'km':'mi'}</strong> ({equators.toFixed(2)} Laps of the Equator)</div>
-      <div>All-time run elevation <OrangeDash /> <strong>{(total_elevation*(metric?0.3048:1)).toFixed(0)} {metric?'m':'ft'}</strong> ({everests.toFixed(1)} Everests)</div>
+      <div>All-time run elevation <OrangeDash /> <strong>{parseInt((total_elevation*(metric?0.3048:1)).toFixed(0)).toLocaleString()} {metric?'m':'ft'}</strong> ({everests.toFixed(1)} Everests)</div>
+      <br />
+      <div>Avg words written about each run <OrangeDash /> <strong>{(total_words / runs.length).toFixed(0)}</strong></div>
+      <div>Total words written about running <OrangeDash /> <strong>{total_words.toLocaleString()}</strong></div>
       <br />
       {shoes.length !== 0 ?
         <div className="ShoeStats">

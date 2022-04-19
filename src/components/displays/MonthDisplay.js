@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import dateFormatter from '../../services/dateFormatter'
 
+//month display is loading two runs and displaying them a year too far up
+
 const MonthDisplay = ({runs, shoes, metric}) => {
 
   const [loaded, setLoaded] = useState({state: 1, all: false})

@@ -34,12 +34,21 @@ const DisplaySelector = ({displayType, setDisplayType}) => {
 
 const TextDisplay = ({runs, shoes, metric}) => {
 
-  //shoe func!
-  //<span>{shoes.find(shoe => shoe.no === run.shoe).name} ({run.shoe})</span>
+  let each_load = 50
+  const [loaded, setLoaded] = useState({state: 1, all: false, total: each_load})
+
+  const handleLoadMore = () => {
+    if (loaded.total + each_load > runs.length) {
+      setLoaded({...loaded, all: true, total: runs.length})
+    } else {
+      setLoaded({...loaded, state: loaded.state + 1, total: loaded.total + each_load})
+    }
+
+  }
 
   return(
     <div>
-      {runs.map(run =>
+      {runs.slice(0,loaded.total).map(run =>
         <div key={run.no} className="TextDisplayRun"
           style={{borderBottom: `${3 + Math.round(run.distance*2)}px solid orange`}}
         >
@@ -47,10 +56,16 @@ const TextDisplay = ({runs, shoes, metric}) => {
           <span>{metric?(run.distance/0.62137).toFixed(1):run.distance} {metric?'km':'miles'}</span>
           <span>{metric?(run.elevation/3.2808).toFixed(0):run.elevation} {metric?'m':'ft'}</span>
 
-          <div className="Description"> &nbsp; {run.description}</div>
+          <div className="Description">{run.description}</div>
         </div>
 
       )}
+
+      {(!loaded.all) &&
+        <div className="LoadMore">
+          <svg onClick={handleLoadMore} className="load-more" viewBox="-1 -1 6 7" xmlns="http://www.w3.org/2000/svg"><path d='M 4 2 A 1 1 0 0 1 0 2 M 0 0 L 2 2 L 4 0'></path></svg>
+        </div>
+      }
     </div>
   )
 }

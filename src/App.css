@@ -328,10 +328,13 @@ svg.hello-h2 {
 .TextDisplayRun {
   border-bottom: 3px solid orange;
   padding: 0.5em 0;
+  text-align: right;
 }
 .TextDisplayRun .Description {
   font-size: 14px;
   white-space: pre-wrap;
+  text-align: left;
+  margin-top: 2px;
 }
 
 .TextDisplayRun span::after {
@@ -445,6 +448,7 @@ svg.sad-face path {fill: none; stroke: orange; stroke-linecap:butt; stroke-width
   bottom: 70px; position: fixed; left: 50%; color: black; border: 3px solid orange;
   padding: 0.25em 0.25em; background-color: white; z-index: 4; max-width: 400px;
   transform: translateX(-50%); font-size: 1.1em;
+  white-space: pre-wrap;
 }
 .HoverDate {
   position: absolute; bottom: calc(100% + 3px); left: 0;
