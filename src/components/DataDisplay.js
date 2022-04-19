@@ -61,7 +61,7 @@ const TextDisplay = ({runs, shoes, metric}) => {
 
       )}
 
-      {(!loaded.all) &&
+      {((!loaded.all) && runs.length !== 0) &&
         <div className="LoadMore">
           <svg onClick={handleLoadMore} className="load-more" viewBox="-1 -1 6 7" xmlns="http://www.w3.org/2000/svg"><path d='M 4 2 A 1 1 0 0 1 0 2 M 0 0 L 2 2 L 4 0'></path></svg>
         </div>
