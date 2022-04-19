@@ -45,7 +45,6 @@ const FortnightDisplay = ({runs, shoes, metric}) => {
 
           if (date - start_date > end_date - date) {
             run.day += 7
-            console.log(run)
           }
 
           current_week.by_days[mondayise(date.getDay())] = run

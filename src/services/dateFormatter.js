@@ -59,7 +59,7 @@ const tradCondensed = (rawDateInput) => {
 const tradShortNoYear = (rawDateInput) => {
 
     const rawDateObj = new Date(rawDateInput);
-    
+
     const rawDate = {year: rawDateObj.getFullYear(), month: rawDateObj.getMonth(), day: rawDateObj.getDate()}
 
     const dayth = [1||11||21||31].some(x=>x===rawDate.day) ? 'st' : [2||12||22].some(x=>x===rawDate.day) ? 'nd' : 'th';

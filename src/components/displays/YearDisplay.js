@@ -47,7 +47,7 @@ const YearDisplay = ({runs, shoes, metric}) => {
 
           <div style={{height: `${by_year.by_months.reduce(function(a,b){return Math.max(a, b);},0)}px`}}>
             {by_year.by_months.map(by_month=>
-              <span className="Month"
+              <span className="Month" key={by_month.month}
                 style={{
                   height: `${by_month}px`,
                   left: `${by_year.by_months.indexOf(by_month)/12*100}%`,

@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 import dateFormatter from '../../services/dateFormatter'
 
-//month display is loading two runs and displaying them a year too far up
-
 const MonthDisplay = ({runs, shoes, metric}) => {
 
   const [loaded, setLoaded] = useState({state: 1, all: false})
@@ -22,13 +20,28 @@ const MonthDisplay = ({runs, shoes, metric}) => {
       if (month < 0) { month += 12; year -= 1 }
       month_array[i] = {month: month, year: year, distance: 0, elevation: 0, by_days:[], longest: 0, length: length }
     }
+
+    const hardSetMonth = d => {
+      d.setDate(1)
+      d.setHours(0)
+      d.setMinutes(0)
+      d.setSeconds(0)
+      d.setMilliseconds(0)
+      d.setMonth(d.getMonth() + 1)
+    }
+    hardSetMonth(end_date)
+    end_date.setTime(end_date.getTime() - 1)
+    hardSetMonth(start_date)
+
     runs.forEach(run => {
 
       const date = new Date(run.date)
       if (date > start_date && date < end_date) {
-        console.log(date)
+
         let month_index = end_date.getMonth() - date.getMonth()
+
         if (month_index < 0) {month_index += 12}
+
         month_array[month_index].distance += run.distance
         month_array[month_index].elevation += run.elevation
         run.day = date.getDate() -1
