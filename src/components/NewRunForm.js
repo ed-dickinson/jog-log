@@ -37,6 +37,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
   }, [shoes])
 
   const [runFormMessage, setRunFormMessage] = useState('')
+  const [buttonLogging, setButtonLogging] = useState(false)
 
   const handleNewRun = async (event) => {
     event.preventDefault();
@@ -52,6 +53,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
     }
     console.log(formBody)
     if (formBody.distance > 0 && runDescription !== '') {
+      setButtonLogging(true)
       try {
         const response = await runService.addNew({
           token: token,
@@ -63,12 +65,16 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
         resetForm()
         setFormOpen(false)
         setChange(!change)
+        setButtonLogging(false)
       } catch (exception) {
         console.log('summin wrong')
         setTimeout(() => {
           console.log('timeout')
         }, 5000)
+        setRunFormMessage('Error...')
+        setButtonLogging(false)
       }
+
     } else {
         setRunFormMessage(formBody.distance === 0 || runDistance === '' ?
           "! Distance can't be 0..." :
@@ -128,7 +134,11 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
 
       <div className="button-cont">
         <span className="run-form-message">{runFormMessage} </span>
-        <button>Log It.</button>
+        <button className={!buttonLogging ? "LogButton" : "LogButton logging"}>Log It.
+          <div className="LoadingAnim">
+            <svg className="loading" viewBox="-1 -1 4 4" xmlns="http://www.w3.org/2000/svg"><path d='M 2 1 A 1 1 0 0 1 0 1'></path></svg>
+          </div>
+        </button>
       </div>
 
     </form>

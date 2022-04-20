@@ -134,6 +134,31 @@ svg.close-svg path {fill: none; stroke: orange; stroke-linecap:butt;}
   cursor: pointer; position:
   relative;
 }
+.Form button.logging {
+  color: orange;
+}
+.Form button .LoadingAnim {
+  display: none;
+}
+.Form button.logging .LoadingAnim {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.Form button.logging .LoadingAnim svg {
+  height: 100% !important;
+  width: 100%;
+  z-index: 2;
+  margin-top: 0;
+}
+.Form button.logging .LoadingAnim svg.loading path {
+  color: white;
+  stroke: white;
+  stroke-width: 0.75px;
+}
 .Form button:hover {top: 1px;}
 .Form button:active {top: 2px;}
 .Form .button-cont {
