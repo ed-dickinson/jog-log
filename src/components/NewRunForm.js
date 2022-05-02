@@ -94,17 +94,14 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
         value={runElevation}
         onChange={({target}) => setRunElevation(target.value)}
       /><span className="form-units">ft</span>
-      <label>Date: </label>
+      <span style={{display: "inline-block"}}><label>Date: </label>
       <input type="date"
         value={runDate}
         onChange={({target}) => setRunDate(target.value)}
-      /><br />
+      /></span><br />
 
-      {
-        // <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noreferrer">(Find your distance/elevation...)</a></div>
-      }
 
-      <div className="PlotLink" ><span onClick={() => {setiFrameOpen('open')}}>(Find your distance/elevation...)</span></div>
+      <div className="PlotLink"><a href="https://onthegomap.com/#/create" target="_blank" rel="noreferrer">(Find your distance/elevation...)</a></div>
 
 
       <label>Description:</label><br />
@@ -124,7 +121,7 @@ const NewRunForm = ({token, user, shoes, setUser, setFormOpen, change, setChange
           onChange={({target}) => {setRunShoe(target.value); console.log(target.value)}}
         >
           {shoes.map(shoe =>
-            <option key={shoe.no} value={shoe.no}>{shoe.name}</option>
+            <option key={shoe.no} value={shoe.no}>{shoe.name} ({shoe.distance.toFixed(0)}mi)</option>
           )}
 
           </select>
